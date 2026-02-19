@@ -1,0 +1,29 @@
+
+> daarusuffa1@0.0.0 lint
+> eslint .
+
+
+C:\Users\Admin\Downloads\daarusuffa1\src\components\About.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Admin\Downloads\daarusuffa1\src\components\Campus.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Admin\Downloads\daarusuffa1\src\components\ErrorBoundary.jsx
+   9:37  error  'error' is defined but never used  no-unused-vars
+  36:22  error  'process' is not defined           no-undef
+
+C:\Users\Admin\Downloads\daarusuffa1\src\components\FutureVision.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Admin\Downloads\daarusuffa1\src\components\Hero.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Admin\Downloads\daarusuffa1\src\components\ProgramDetail.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Admin\Downloads\daarusuffa1\src\components\Programs.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+Γ£û 8 problems (8 errors, 0 warnings)
+
