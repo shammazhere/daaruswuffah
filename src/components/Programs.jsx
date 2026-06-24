@@ -62,7 +62,7 @@ const Programs = () => {
     };
 
     return (
-        <section id="programs" className="bg-white py-24 overflow-hidden relative">
+        <section id="programs" className="bg-white dark:bg-[#0c2429] py-24 overflow-hidden relative">
             {/* Unique Background Shapes */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute -top-[20%] -right-[10%] w-[700px] h-[700px] bg-peach/10 rounded-full blur-3xl opacity-60"></div>
@@ -74,7 +74,7 @@ const Programs = () => {
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-20">
                     <div className="max-w-2xl text-center lg:text-left">
                         <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">Academic Ecosystem</span>
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy leading-tight mb-6">
+                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy dark:text-gold-light leading-tight mb-6">
                             An Insight of <span className="text-gold italic">The Courses</span>
                         </h2>
                         <div className="w-24 h-1 bg-gold rounded-full mb-8 mx-auto lg:ml-0"></div>
@@ -94,7 +94,7 @@ const Programs = () => {
                                     col-span-2 px-2 py-6 rounded-xl flex flex-col items-center gap-2 transition-all duration-300 border-2
                                     ${activeCategory === cat.id
                                         ? 'bg-navy text-white border-navy shadow-lg scale-105'
-                                        : 'bg-white text-navy/70 border-navy/10 hover:border-gold hover:text-navy hover:shadow-md'}
+                                        : 'bg-white dark:bg-[#0a2025] text-navy/70 dark:text-peach/70 border-navy/10 dark:border-gold/10 hover:border-gold hover:text-navy dark:hover:text-gold hover:shadow-md'}
                                 `}
                             >
                                 <span className={activeCategory === cat.id ? 'text-gold' : 'text-navy/40'}>
@@ -114,7 +114,7 @@ const Programs = () => {
                                     col-span-2 px-2 py-6 rounded-xl flex flex-col items-center gap-2 transition-all duration-300 border-2
                                     ${activeCategory === cat.id
                                         ? 'bg-navy text-white border-navy shadow-lg scale-105'
-                                        : 'bg-white text-navy/70 border-navy/10 hover:border-gold hover:text-navy hover:shadow-md'}
+                                        : 'bg-white dark:bg-[#0a2025] text-navy/70 dark:text-peach/70 border-navy/10 dark:border-gold/10 hover:border-gold hover:text-navy dark:hover:text-gold hover:shadow-md'}
                                 `}
                             >
                                 <span className={activeCategory === cat.id ? 'text-gold' : 'text-navy/40'}>
@@ -133,10 +133,10 @@ const Programs = () => {
                     <div className="lg:col-span-7 relative px-8">
                         {filteredPrograms.length > 1 && (
                             <>
-                                <button onClick={prevSlide} className="absolute -left-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-navy/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white shadow-lg">
+                                <button onClick={prevSlide} className="absolute -left-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
                                     <ChevronLeft size={24} />
                                 </button>
-                                <button onClick={nextSlide} className="absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-navy/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white shadow-lg">
+                                <button onClick={nextSlide} className="absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
                                     <ChevronRight size={24} />
                                 </button>
                             </>
@@ -154,7 +154,7 @@ const Programs = () => {
                                         transition={{
                                             type: "spring", stiffness: 100, damping: 20, mass: 0.8
                                         }}
-                                        className="group relative h-[400px] rounded-[2rem] overflow-hidden cursor-pointer shadow-premium"
+                                        className="group relative h-[480px] rounded-[2rem] overflow-hidden cursor-pointer shadow-premium"
                                     >
                                         <Link to={`/program/${program.id}`} className="block w-full h-full">
                                             <img src={program.image} alt={program.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -181,13 +181,13 @@ const Programs = () => {
                             initial={{ opacity: 0, x: 30 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                            className="bg-navy/5 p-8 rounded-3xl border border-navy/5 relative overflow-hidden"
+                            className="bg-navy/5 dark:bg-[#071d21] p-8 rounded-3xl border border-navy/5 dark:border-gold/10 relative overflow-hidden"
                         >
-                            <h3 className="text-2xl font-serif font-bold text-navy mb-4 relative z-10">
+                            <h3 className="text-2xl font-serif font-bold text-navy dark:text-gold-light mb-4 relative z-10">
                                 {activeCategory === 'All' ? 'Education for All' : `Programs for ${categories.find(c => c.id === activeCategory)?.label || activeCategory}`}
                             </h3>
                             <div className="w-12 h-1 bg-gold rounded-full mb-6 relative z-10"></div>
-                            <p className="text-dark/70 leading-relaxed mb-8 relative z-10 text-sm">
+                            <p className="text-dark/70 dark:text-peach/70 leading-relaxed mb-8 relative z-10 text-sm">
                                 {activeCategory === 'All' ? "Our curriculum caters to every stage of development, ensuring academic excellence and spiritual growth." :
                                     activeCategory === 'Kids' ? "Start them young with our nurturing programs combining foundational academics with moral education." :
                                         activeCategory === 'Youth' ? "Empowering young minds with skills, knowledge and leadership values to navigate the future." :

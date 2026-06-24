@@ -11,7 +11,7 @@ const visions = [
 
 const FutureVision = () => {
     return (
-        <section id="vision" className="bg-gradient-to-b from-gold-light to-white py-32 text-navy relative overflow-hidden">
+        <section id="vision" className="bg-gradient-to-b from-gold-light to-white dark:from-[#0f2b30] dark:to-[#071d21] py-32 text-navy dark:text-peach/90 relative overflow-hidden">
             {/* Unique Background Pattern */}
             <div className="absolute inset-0 opacity-10 pointer-events-none"
                 style={{
@@ -22,7 +22,7 @@ const FutureVision = () => {
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
                 <div className="text-center mb-20">
                     <span className="text-gold font-bold tracking-[0.2em] uppercase text-sm mb-4 block">Our Roadmap</span>
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy">Vision for the Future</h2>
+                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy dark:text-gold-light">Vision for the Future</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
@@ -33,15 +33,15 @@ const FutureVision = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.6 }}
-                            className="group bg-white/40 backdrop-blur-md border border-navy/5 p-10 rounded-3xl hover:bg-white/60 hover:border-gold/30 transition-all duration-500 shadow-lg shadow-navy/5"
+                            className="group bg-white/40 dark:bg-[#0a2025]/60 backdrop-blur-md border border-navy/5 dark:border-gold/10 p-10 rounded-3xl hover:bg-white/60 dark:hover:bg-[#0a2025]/80 hover:border-gold/30 transition-all duration-500 shadow-lg shadow-navy/5"
                         >
                             <div className="flex items-start gap-8">
                                 <div className="p-5 rounded-2xl bg-gold/10 text-gold group-hover:bg-gold group-hover:text-white transition-all duration-500 shrink-0">
                                     {vision.icon}
                                 </div>
                                 <div>
-                                    <h4 className="text-2xl font-serif font-bold mb-3 text-navy group-hover:text-gold transition-colors">{vision.title}</h4>
-                                    <p className="text-navy/70 leading-relaxed font-bold">{vision.desc}</p>
+                                    <h4 className="text-2xl font-serif font-bold mb-3 text-navy dark:text-gold-light group-hover:text-gold transition-colors">{vision.title}</h4>
+                                    <p className="text-navy/70 dark:text-peach/70 leading-relaxed font-bold">{vision.desc}</p>
                                 </div>
                             </div>
                         </motion.div>

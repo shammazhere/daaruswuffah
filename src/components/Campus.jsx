@@ -6,11 +6,11 @@ import { CheckCircle } from 'lucide-react';
 
 const Campus = () => {
     return (
-        <section id="campus" className="bg-peach py-24 overflow-hidden">
+        <section id="campus" className="bg-peach dark:bg-[#071d21] py-24 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <div className="text-center mb-20">
                     <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">World-Class Facilities</span>
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy">The Heart of Learning</h2>
+                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy dark:text-gold-light">The Heart of Learning</h2>
                 </div>
 
                 <div className="space-y-32">
@@ -22,13 +22,13 @@ const Campus = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h3 className="text-3xl font-serif font-bold text-navy mb-6">Designed for Excellence</h3>
-                            <p className="text-dark/70 text-lg mb-8 leading-relaxed">
+                            <h3 className="text-3xl font-serif font-bold text-navy dark:text-gold-light mb-6">Designed for Excellence</h3>
+                            <p className="text-dark/70 dark:text-peach/85 text-lg mb-8 leading-relaxed">
                                 Our classrooms are designed to create a comfortable and productive learning environment. Featuring modern visual aids and climate control, we ensure students can focus on their educational journey with peace of mind.
                             </p>
                             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {['Full Air Conditioning', 'Modern Visual Aids', 'Ergonomic Seating', 'Intuitive Layout'].map((feature) => (
-                                    <li key={feature} className="flex items-center gap-3 text-sm font-semibold text-navy">
+                                    <li key={feature} className="flex items-center gap-3 text-sm font-semibold text-navy dark:text-peach">
                                         <div className="w-5 h-5 rounded-full bg-gold/10 flex items-center justify-center text-gold">
                                             <CheckCircle size={14} />
                                         </div>
@@ -60,8 +60,8 @@ const Campus = () => {
                             transition={{ duration: 0.8 }}
                             className="lg:order-2"
                         >
-                            <h3 className="text-3xl font-serif font-bold text-navy mb-6">A Sanctuary of Knowledge</h3>
-                            <p className="text-dark/70 text-lg mb-8 leading-relaxed">
+                            <h3 className="text-3xl font-serif font-bold text-navy dark:text-gold-light mb-6">A Sanctuary of Knowledge</h3>
+                            <p className="text-dark/70 dark:text-peach/85 text-lg mb-8 leading-relaxed">
                                 Our library is a peaceful haven with a rich collection of Islamic books. From classical texts to modern research papers, it offers an ideal space for students and researchers to deepen their understanding.
                             </p>
                             <button className="btn-gold px-10">Explore Collection</button>

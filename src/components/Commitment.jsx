@@ -28,11 +28,11 @@ const CountUp = ({ value, suffix = "" }) => {
 
 const Commitment = () => {
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 bg-white dark:bg-[#0c2429] relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <div className="text-center mb-16">
                     <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">Community Impact</span>
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy">Our Commitment</h2>
+                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy dark:text-gold-light">Our Commitment</h2>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -45,8 +45,8 @@ const Commitment = () => {
                         <div className="text-5xl font-serif font-bold text-gold mb-4">
                             <CountUp value={12} suffix="+" />
                         </div>
-                        <h3 className="text-lg font-bold text-navy mb-2 uppercase tracking-wider">Years of Impact</h3>
-                        <p className="text-dark/60 text-sm">A legacy of excellence</p>
+                        <h3 className="text-lg font-bold text-navy dark:text-peach mb-2 uppercase tracking-wider">Years of Impact</h3>
+                        <p className="text-dark/60 dark:text-peach/60 text-sm">A legacy of excellence</p>
                     </motion.div>
 
                     <motion.div
@@ -59,8 +59,8 @@ const Commitment = () => {
                         <div className="text-5xl font-serif font-bold text-gold mb-4">
                             <CountUp value={1000} suffix="+" />
                         </div>
-                        <h3 className="text-lg font-bold text-navy mb-2 uppercase tracking-wider">Students</h3>
-                        <p className="text-dark/60 text-sm">Empowered annually</p>
+                        <h3 className="text-lg font-bold text-navy dark:text-peach mb-2 uppercase tracking-wider">Students</h3>
+                        <p className="text-dark/60 dark:text-peach/60 text-sm">Empowered annually</p>
                     </motion.div>
 
                     <motion.div
@@ -73,8 +73,8 @@ const Commitment = () => {
                         <div className="text-5xl font-serif font-bold text-gold mb-4">
                             <CountUp value={50} suffix="+" />
                         </div>
-                        <h3 className="text-lg font-bold text-navy mb-2 uppercase tracking-wider">Educators</h3>
-                        <p className="text-dark/60 text-sm">Qualified scholars</p>
+                        <h3 className="text-lg font-bold text-navy dark:text-peach mb-2 uppercase tracking-wider">Educators</h3>
+                        <p className="text-dark/60 dark:text-peach/60 text-sm">Qualified scholars</p>
                     </motion.div>
 
                     <motion.div
@@ -87,8 +87,8 @@ const Commitment = () => {
                         <div className="text-5xl font-serif font-bold text-gold mb-4">
                             <CountUp value={8} suffix="+" />
                         </div>
-                        <h3 className="text-lg font-bold text-navy mb-2 uppercase tracking-wider">Courses</h3>
-                        <p className="text-dark/60 text-sm">Specialized programs</p>
+                        <h3 className="text-lg font-bold text-navy dark:text-peach mb-2 uppercase tracking-wider">Courses</h3>
+                        <p className="text-dark/60 dark:text-peach/60 text-sm">Specialized programs</p>
                     </motion.div>
                 </div>
             </div>

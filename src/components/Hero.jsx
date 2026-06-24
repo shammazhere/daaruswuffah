@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import heroImg from '../assets/hero_campus.png';
+import WaveDivider from './WaveDivider';
 
 const Hero = () => {
     return (
@@ -18,6 +19,9 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-navy/40 via-navy/60 to-navy/90"></div>
             </div>
 
+            {/* Subtle gold glow top-right */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(199,161,90,0.08) 0%, transparent 70%)' }} />
+
             {/* Content */}
             <div className="container relative z-10 px-6 lg:px-12 text-center text-white">
                 <motion.div
@@ -26,10 +30,6 @@ const Hero = () => {
                     transition={{ duration: 1 }}
                     className="flex flex-col items-center"
                 >
-                    {/* <span className="text-gold font-medium tracking-[0.3em] uppercase text-sm mb-4 block animate-fade-in">
-                        Welcome to AS-SWUFFAH FOUNDATION
-                    </span> */}
-
                     <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6 text-shadow-md">
                         Imparting <span className="text-gold italic">Knowledge</span><br />
                         Illuminating <span className="text-gold">Hearts</span>
@@ -40,16 +40,10 @@ const Hero = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center w-full max-w-md mx-auto">
-                        <Link
-                            to="/programs"
-                            className="btn-gold text-lg py-4 flex items-center justify-center"
-                        >
+                        <Link to="/programs" className="btn-gold text-lg py-4 flex items-center justify-center">
                             Explore Programs
                         </Link>
-                        <Link
-                            to="/contact"
-                            className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-full font-medium hover:bg-white/20 transition-all duration-300 flex items-center justify-center"
-                        >
+                        <Link to="/contact" className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-full font-medium hover:bg-white/20 transition-all duration-300 flex items-center justify-center">
                             Apply Now
                         </Link>
                     </div>
@@ -67,19 +61,8 @@ const Hero = () => {
                 <ChevronDown size={32} className="animate-bounce" />
             </motion.div>
 
-            {/* Premium Curved Divider */}
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-20">
-                <svg
-                    viewBox="0 0 1200 120"
-                    preserveAspectRatio="none"
-                    className="relative block w-[120%] h-[70px] md:h-[110px] left-[-10%]"
-                >
-                    <path
-                        d="M0,0 C450,150 750,150 1200,0 L1200,120 L0,120 Z"
-                        className="fill-peach"
-                    ></path>
-                </svg>
-            </div>
+            {/* Wave — transitions into the peach/dark section below */}
+            <WaveDivider fillLight="#f7f5f0" fillDark="#071d21" />
         </section>
     );
 };

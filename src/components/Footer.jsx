@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from 'luci
 
 const Footer = () => {
     return (
-        <footer id="footer" className="relative bg-white/40 text-navy pt-24 pb-12 overflow-hidden border-t border-navy/5">
+        <footer id="footer" className="relative bg-white/40 dark:bg-[#041214] text-navy dark:text-peach/80 pt-24 pb-12 overflow-hidden border-t border-navy/5 dark:border-gold/10">
             {/* Map Background - Always Visible & Calm */}
             <div className="absolute inset-0 z-0">
                 <iframe
@@ -15,10 +15,10 @@ const Footer = () => {
                     allowFullScreen=""
                     loading="lazy"
                     title="Area Map"
-                    className="w-full h-full opacity-30 filter grayscale(100%) brightness(1.1) contrast(0.9)"
+                    className="w-full h-full opacity-30 filter grayscale(100%) brightness(1.1) contrast(0.9) dark:opacity-20 dark:invert dark:hue-rotate-180"
                 ></iframe>
                 {/* Minimal Overlay to keep it calm and allow legibility */}
-                <div className="absolute inset-0 bg-white/20 pointer-events-none backdrop-blur-[1px]"></div>
+                <div className="absolute inset-0 bg-white/20 dark:bg-[#041214]/70 pointer-events-none backdrop-blur-[1px]"></div>
             </div>
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
@@ -26,14 +26,14 @@ const Footer = () => {
                     {/* Brand Section */}
                     <div>
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="font-serif text-3xl font-bold tracking-tight text-navy">AS-SWUFFAH</span>
+                            <span className="font-serif text-3xl font-bold tracking-tight text-navy dark:text-gold-light">AS-SWUFFAH</span>
                         </div>
-                        <p className="text-navy/90 text-sm font-bold leading-relaxed mb-8 max-w-sm">
+                        <p className="text-navy/90 dark:text-peach/80 text-sm font-bold leading-relaxed mb-8 max-w-sm">
                             Imparting Knowledge. Illuminating Hearts. We are committed to providing premium academic and spiritual education in Mangalore.
                         </p>
                         <div className="flex gap-4">
                             {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
-                                <a key={i} href="#" className="w-10 h-10 rounded-full border border-navy/20 flex items-center justify-center text-navy hover:bg-gold hover:border-gold hover:text-white transition-all duration-700">
+                                <a key={i} href="#" className="w-10 h-10 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center text-navy dark:text-peach/80 hover:bg-gold hover:border-gold hover:text-white transition-all duration-700">
                                     <Icon size={18} strokeWidth={2.5} />
                                 </a>
                             ))}
@@ -44,7 +44,7 @@ const Footer = () => {
                     <div className="grid grid-cols-2 gap-8">
                         <div>
                             <h4 className="font-serif text-xl font-bold mb-6 text-gold uppercase tracking-wider text-sm">Explore</h4>
-                            <ul className="space-y-4 text-sm text-navy font-bold">
+                            <ul className="space-y-4 text-sm text-navy dark:text-peach/80 font-bold">
                                 <li><Link to="/" className="hover:text-gold transition-colors">Home</Link></li>
                                 <li><Link to="/about" className="hover:text-gold transition-colors">About Us</Link></li>
                                 <li><Link to="/programs" className="hover:text-gold transition-colors">Programs</Link></li>
@@ -55,7 +55,7 @@ const Footer = () => {
                         </div>
                         <div>
                             <h4 className="font-serif text-xl font-bold mb-6 text-gold uppercase tracking-wider text-sm">Contact</h4>
-                            <ul className="space-y-4 text-sm text-navy font-bold">
+                            <ul className="space-y-4 text-sm text-navy dark:text-peach/80 font-bold">
                                 <li className="flex gap-4">
                                     <MapPin size={20} strokeWidth={2.5} className="text-gold shrink-0" />
                                     <span>HH Diamond City, Jeppu, Mangalore</span>
@@ -85,7 +85,7 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-navy/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-navy/50 font-bold uppercase tracking-[0.2em]">
+                <div className="pt-8 border-t border-navy/10 dark:border-gold/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-navy/50 dark:text-peach/40 font-bold uppercase tracking-[0.2em]">
                     <p>© 2026 AS-SWUFFAH FOUNDATION. All rights reserved.</p>
                     <div className="flex gap-6">
                         <a href="#" className="hover:text-gold transition-colors">Privacy Policy</a>

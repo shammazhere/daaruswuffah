@@ -1,29 +1,33 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import AboutPage from './pages/AboutPage';
-import ProgramsPage from './pages/ProgramsPage';
-import CampusPage from './pages/CampusPage';
-import VisionPage from './pages/VisionPage';
-import ContactPage from './pages/ContactPage';
-import ProgramDetail from './components/ProgramDetail';
-import NotFound from './components/NotFound';
+import LoadingSpinner from './components/LoadingSpinner';
+
+const Home = lazy(() => import('./pages/Home'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ProgramsPage = lazy(() => import('./pages/ProgramsPage'));
+const CampusPage = lazy(() => import('./pages/CampusPage'));
+const VisionPage = lazy(() => import('./pages/VisionPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const ProgramDetail = lazy(() => import('./components/ProgramDetail'));
+const NotFound = lazy(() => import('./components/NotFound'));
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="programs" element={<ProgramsPage />} />
-        <Route path="campus" element={<CampusPage />} />
-        <Route path="vision" element={<VisionPage />} />
-        <Route path="contact" element={<ContactPage />} />
-        <Route path="program/:id" element={<ProgramDetail />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="programs" element={<ProgramsPage />} />
+          <Route path="campus" element={<CampusPage />} />
+          <Route path="vision" element={<VisionPage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="program/:id" element={<ProgramDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 

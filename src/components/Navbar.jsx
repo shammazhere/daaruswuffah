@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
@@ -7,7 +7,26 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    // Check initial dark mode state
+    const isDark = document.documentElement.classList.contains('dark');
+    setIsDarkMode(isDark);
+  }, []);
+
+  const toggleDarkMode = () => {
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      setIsDarkMode(false);
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      setIsDarkMode(true);
+    }
+  };
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -86,11 +105,31 @@ const Navbar = () => {
             </Link>
           ))}
 
-
+          {/* Theme Toggle Desktop */}
+          <button
+            onClick={toggleDarkMode}
+            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 ${
+              hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'
+            }`}
+            aria-label="Toggle Dark Mode"
+          >
+            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
         </div>
 
         {/* Mobile Toggle */}
         <div className="flex items-center gap-4 lg:hidden">
+          {/* Theme Toggle Mobile */}
+          <button
+            onClick={toggleDarkMode}
+            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 ${
+              hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'
+            }`}
+            aria-label="Toggle Dark Mode"
+          >
+            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+          
           <Link to="/contact" className="btn-gold py-1.5 px-4 text-xs">Join</Link>
           <button
             className={`p-2 transition-colors ${hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'}`}
