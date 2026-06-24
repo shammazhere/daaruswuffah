@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import classroomImg from '../assets/classroom.png';
-import libraryImg from '../assets/library.png';
+const classroomImg = 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&q=80';
+const libraryImg = 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200&q=80';
 import { CheckCircle } from 'lucide-react';
 
 const Campus = () => {

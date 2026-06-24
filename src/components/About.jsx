@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import chairmanImg from '../assets/chairman.png';
-import viceChairmanImg from '../assets/vice_chairman.png';
+const chairmanImg = 'https://images.unsplash.com/photo-1615109398623-88346a601842?w=800&q=80';
+const viceChairmanImg = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80';
 
 const About = () => {
     return (

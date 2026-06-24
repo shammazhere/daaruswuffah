@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import heroImg from '../assets/hero_campus.png';
+const heroImg = 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1920&q=80';
 import WaveDivider from './WaveDivider';
 
 const Hero = () => {

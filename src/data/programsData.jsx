@@ -1,11 +1,11 @@
 import React from 'react';
 import { BookOpen, Users, Star, TrendingUp, Heart, GraduationCap, Compass } from 'lucide-react';
-import programNurture from '../assets/program_nurture_1769973836325.png';
-import programBloom from '../assets/program_bloom_1769973856803.png';
-import programSparkle from '../assets/program_sparkle_1769973875382.png';
-import programThrive from '../assets/program_thrive_1769973893522.png';
-import programEmpowher from '../assets/program_empowher_1769973930527.png';
-import programValuePlus from '../assets/program_valueplus_1769973948913.png';
+const programNurture = 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80';
+const programBloom = 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80';
+const programSparkle = 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80';
+const programThrive = 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=80';
+const programEmpowher = 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80';
+const programValuePlus = 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80';
 
 export const programsData = [
     {

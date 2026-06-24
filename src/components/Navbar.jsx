@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -81,12 +80,10 @@ const Navbar = () => {
           to="/"
           className="flex items-center group"
         >
-          <img
-            src={logo}
-            alt="AS-SWUFFAH"
-            className={`h-16 lg:h-24 w-auto object-contain transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'
-              }`}
-          />
+          <div className={`flex flex-col leading-none transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'}`}>
+            <span className={`font-serif font-bold text-xl tracking-wide ${hasDarkHero ? (scrolled ? 'text-navy' : 'text-white') : 'text-navy'}`}>AS-SWUFFAH</span>
+            <span className={`text-gold text-xs font-medium tracking-[0.15em] uppercase`}>Islamic Academy</span>
+          </div>
         </Link>
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8">
