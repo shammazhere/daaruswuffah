@@ -1,19 +1,19 @@
 import React from 'react';
+import HeroCurve from '../components/HeroCurve';
 import { motion } from 'framer-motion';
 import { programsData, getIcon } from '../data/programsData';
 import { Download, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import WaveDivider from '../components/WaveDivider';
 
 const ProgramsPage = () => {
     const categories = ['Kids', 'Youth', 'Ladies', 'Gents'];
 
     return (
         <div className="bg-peach dark:bg-[#071d21] min-h-screen">
-            {/* Hero Section */}
-            <section className="relative min-h-[67vh] flex items-center bg-gradient-to-b from-gold-light to-peach dark:from-[#163e47] dark:to-[#0a2428] pt-48 pb-32 overflow-hidden">
+            <div className="hero-arc-wrap">
+            <section className="relative h-[85vh] flex items-center bg-gradient-to-b from-gold-light to-peach dark:from-[#0D2A21] dark:to-[#071A14] pt-32 hero-arc">
                 {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-islamic-pattern" />
+                <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-islamic-pattern rounded-b-[inherit]" />
 
                 {/* Radial gold glow — top right (dark mode accent) */}
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-gradient-radial from-gold/10 to-transparent pointer-events-none opacity-0 dark:opacity-100 blur-3xl" />
@@ -29,9 +29,10 @@ const ProgramsPage = () => {
                         </p>
                     </motion.div>
                 </div>
+</section>
+                            <HeroCurve fillLight="#F8F5EC" fillDark="#071A14" />
 
-                <WaveDivider fillLight="#f7f5f0" fillDark="#071d21" />
-            </section>
+            </div>
 
             {/* Categorized Sections */}
             {categories.map((category, catIndex) => (

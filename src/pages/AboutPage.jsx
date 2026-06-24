@@ -1,9 +1,9 @@
 import React from 'react';
+import HeroCurve from '../components/HeroCurve';
 import { motion } from 'framer-motion';
 const chairmanImg = 'https://images.unsplash.com/photo-1615109398623-88346a601842?w=800&q=80';
 const viceChairmanImg = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80';
 import { GraduationCap, Heart, Users, Lightbulb } from 'lucide-react';
-import WaveDivider from '../components/WaveDivider';
 
 const AboutPage = () => {
     const values = [
@@ -15,9 +15,9 @@ const AboutPage = () => {
 
     return (
         <div>
-            {/* Hero Section */}
-            <section className="relative min-h-[67vh] flex items-center bg-gradient-to-b from-gold-light to-peach dark:from-[#163e47] dark:to-[#0a2428] pt-48 pb-32 overflow-hidden">
-                <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-islamic-pattern" />
+            <div className="hero-arc-wrap">
+            <section className="relative h-[85vh] flex items-center bg-gradient-to-b from-gold-light to-peach dark:from-[#0D2A21] dark:to-[#071A14] pt-32 hero-arc">
+                <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-islamic-pattern rounded-b-[inherit]" />
                 {/* Gold glow top-right (dark mode) */}
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-0 dark:opacity-100 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(199,161,90,0.12) 0%, transparent 70%)' }} />
                 {/* Teal glow bottom-left (dark mode) */}
@@ -32,8 +32,10 @@ const AboutPage = () => {
                         </p>
                     </motion.div>
                 </div>
-                <WaveDivider fillLight="#f7f5f0" fillDark="#071d21" />
-            </section>
+</section>
+                            <HeroCurve fillLight="#F8F5EC" fillDark="#071A14" />
+
+            </div>
 
             {/* Leadership Section */}
             <section className="bg-peach dark:bg-[#071d21] py-24">

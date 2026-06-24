@@ -52,12 +52,33 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
+  const primaryLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Programs', path: '/programs' },
-    { name: 'Campus', path: '/campus' },
-    { name: 'Vision', path: '/vision' },
+    { name: 'Admissions', path: '/admissions' }
+  ];
+
+  const dropdownLinks = [
+    { name: 'Campus Facilities', path: '/campus' },
+    { name: 'Vision & Roadmap', path: '/vision' },
+    { name: 'Faculty & Scholars', path: '/faculty' },
+    { name: 'Academy Gallery', path: '/gallery' },
+    { name: 'Events & News', path: '/events' },
+    { name: 'FAQs', path: '/faqs' }
+  ];
+
+  const mobileLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About Academy', path: '/about' },
+    { name: 'Courses & Programs', path: '/programs' },
+    { name: 'Admissions Open', path: '/admissions' },
+    { name: 'Campus Facilities', path: '/campus' },
+    { name: 'Vision & Roadmap', path: '/vision' },
+    { name: 'Faculty & Scholars', path: '/faculty' },
+    { name: 'Academy Gallery', path: '/gallery' },
+    { name: 'Events & News', path: '/events' },
+    { name: 'FAQs', path: '/faqs' },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -68,6 +89,8 @@ const Navbar = () => {
   const isHomePage = location.pathname === '/';
   const isProgramPage = location.pathname.startsWith('/program/');
   const hasDarkHero = isHomePage || isProgramPage;
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
     <nav
@@ -85,9 +108,10 @@ const Navbar = () => {
             <span className={`text-gold text-xs font-medium tracking-[0.15em] uppercase`}>Islamic Academy</span>
           </div>
         </Link>
+
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {primaryLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
@@ -102,12 +126,59 @@ const Navbar = () => {
             </Link>
           ))}
 
+          {/* Elegant Dropdown for Extra Pages */}
+          <div
+            className="relative"
+            onMouseEnter={() => setIsDropdownOpen(true)}
+            onMouseLeave={() => setIsDropdownOpen(false)}
+          >
+            <button
+              className={`text-sm font-medium tracking-wider uppercase transition-all duration-300 flex items-center gap-1.5 focus:outline-none ${isDropdownOpen ? 'text-gold' : (hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold')
+                }`}
+            >
+              <span>Explore</span>
+              <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {isDropdownOpen && (
+              <div className="absolute left-1/2 -translate-x-1/2 top-full w-56 pt-4 bg-transparent animate-fade-in z-55">
+                <div className="bg-white dark:bg-[#0D2A21] rounded-2xl p-4 border border-navy/5 dark:border-white/5 shadow-premium space-y-1">
+                  {dropdownLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      to={link.path}
+                      className={`block text-xs font-semibold px-4 py-2.5 rounded-xl transition-all duration-200 ${isActive(link.path)
+                          ? 'bg-gold/10 text-gold'
+                          : 'text-dark/70 dark:text-peach/80 hover:bg-gold/10 hover:text-gold'
+                        }`}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link
+            to="/contact"
+            className={`text-sm font-medium tracking-wider uppercase transition-all duration-300 relative group ${isActive('/contact')
+              ? 'text-gold'
+              : (hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold')
+              }`}
+          >
+            Contact
+            <span className={`absolute -bottom-1 left-0 h-0.5 bg-gold transition-all duration-300 ${isActive('/contact') ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></span>
+          </Link>
+
           {/* Theme Toggle Desktop */}
           <button
             onClick={toggleDarkMode}
-            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 ${
-              hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'
-            }`}
+            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 ${hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'
+              }`}
             aria-label="Toggle Dark Mode"
           >
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
@@ -119,14 +190,13 @@ const Navbar = () => {
           {/* Theme Toggle Mobile */}
           <button
             onClick={toggleDarkMode}
-            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 ${
-              hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'
-            }`}
+            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 ${hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'
+              }`}
             aria-label="Toggle Dark Mode"
           >
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          
+
           <Link to="/contact" className="btn-gold py-1.5 px-4 text-xs">Join</Link>
           <button
             className={`p-2 transition-colors ${hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'}`}
@@ -139,18 +209,18 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 bg-navy transition-all duration-500 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+        className={`lg:hidden fixed inset-0 z-40 bg-[#071A14] dark:bg-[#071A14] transition-all duration-500 overflow-y-auto ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
           }`}
       >
-        <div className="flex flex-col items-center justify-center h-full space-y-8 px-6 text-center">
-          {navLinks.map((link, index) => (
+        <div className="flex flex-col items-center justify-start min-h-screen py-24 space-y-6 px-6 text-center">
+          {mobileLinks.map((link, index) => (
             <Link
               key={link.name}
               to={link.path}
               onClick={() => setIsMenuOpen(false)}
-              className={`text-2xl font-serif text-white hover:text-gold transition-all duration-300 transform ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              className={`text-xl font-serif text-white/80 hover:text-gold transition-all duration-300 transform ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{ transitionDelay: `${index * 50}ms` }}
             >
               {link.name}
             </Link>
@@ -158,7 +228,7 @@ const Navbar = () => {
           <Link
             to="/contact"
             onClick={() => setIsMenuOpen(false)}
-            className="btn-gold mt-4 w-full max-w-xs"
+            className="btn-gold mt-6 w-full max-w-xs"
           >
             Start Your Journey
           </Link>

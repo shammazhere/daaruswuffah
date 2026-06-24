@@ -5,7 +5,7 @@ import React from 'react';
  * fillDark: hex color matching the section BELOW the hero in dark mode.
  * fillLight: hex color matching the section BELOW the hero in light mode.
  */
-const WaveDivider = ({ fillLight = '#f7f5f0', fillDark = '#071d21' }) => {
+const WaveDivider = ({ fillLight = '#F8F5EC', fillDark = '#071A14' }) => {
     const [isDark, setIsDark] = React.useState(false);
 
     React.useEffect(() => {

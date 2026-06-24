@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import HeroCurve from '../components/HeroCurve';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
-import WaveDivider from '../components/WaveDivider';
 
 const ContactPage = () => {
     const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
@@ -24,9 +24,9 @@ const ContactPage = () => {
 
     return (
         <div>
-            {/* Hero Section */}
-            <section className="relative min-h-[72vh] flex items-center bg-gradient-to-b from-gold-light to-peach dark:from-[#163e47] dark:to-[#0a2428] pt-48 pb-36 overflow-hidden">
-                <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-islamic-pattern" />
+            <div className="hero-arc-wrap">
+            <section className="relative h-[85vh] flex items-center bg-gradient-to-b from-gold-light to-peach dark:from-[#0D2A21] dark:to-[#071A14] pt-32 hero-arc">
+                <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-islamic-pattern rounded-b-[inherit]" />
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-0 dark:opacity-100 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(199,161,90,0.12) 0%, transparent 70%)' }} />
                 <div className="absolute -bottom-10 left-0 w-[400px] h-[400px] rounded-full opacity-0 dark:opacity-100 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(26,85,96,0.25) 0%, transparent 70%)' }} />
 
@@ -39,8 +39,10 @@ const ContactPage = () => {
                         </p>
                     </motion.div>
                 </div>
-                <WaveDivider fillLight="#f7f5f0" fillDark="#071d21" />
-            </section>
+</section>
+                            <HeroCurve fillLight="#F8F5EC" fillDark="#071A14" />
+
+            </div>
 
             {/* Contact Info & Form */}
             <section className="py-24 bg-peach dark:bg-[#071d21]">

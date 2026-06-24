@@ -3,7 +3,6 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { programsData, getIcon } from '../data/programsData';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
-import WaveDivider from './WaveDivider';
 
 const ProgramDetail = () => {
     const { id } = useParams();
@@ -21,8 +20,10 @@ const ProgramDetail = () => {
 
     return (
         <div className="bg-peach dark:bg-[#071d21] min-h-screen flex flex-col">
-            {/* Hero Header */}
-            <div className="relative bg-navy h-screen flex items-center overflow-hidden z-0">
+            <div className="hero-arc-wrap">
+            <div
+                className="relative bg-navy h-screen flex items-center overflow-hidden z-10 hero-arc"
+            >
                 <div className="absolute inset-0 z-0">
                     <img src={program.image} alt="" className="w-full h-full object-cover object-center opacity-30" />
                     <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-transparent"></div>
@@ -55,7 +56,7 @@ const ProgramDetail = () => {
                 </div>
 
                 <div className="absolute bottom-0 right-0 w-1/3 h-full bg-gradient-to-l from-gold/5 to-transparent pointer-events-none"></div>
-                <WaveDivider fillLight="#f7f5f0" fillDark="#071d21" />
+            </div>
             </div>
 
             {/* Content Section */}
