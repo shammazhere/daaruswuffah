@@ -163,7 +163,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center group"
+          className={`flex items-center group transition-opacity duration-300 ${isMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           onClick={() => {
             setIsMenuOpen(false);
             if (location.pathname === '/') {
@@ -281,7 +281,7 @@ const Navbar = () => {
           {/* Theme Toggle Mobile */}
           <button
             onClick={toggleDarkMode}
-            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${isMenuOpen || (hasDarkHero && !scrolled) ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'
+            className={`p-2 rounded-full hover:bg-gold/10 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${isMenuOpen ? 'opacity-0 pointer-events-none translate-x-4' : 'opacity-100 translate-x-0'} ${hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'
               }`}
             aria-label="Toggle Dark Mode"
           >
