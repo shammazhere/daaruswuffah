@@ -276,7 +276,7 @@ const Navbar = () => {
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
-          <Link to="/contact" className="btn-gold py-1.5 px-4 text-xs">Join</Link>
+
           <button
             ref={hamburgerRef}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
