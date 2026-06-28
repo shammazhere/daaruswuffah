@@ -2,16 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AS-SWUFFAH Islamic Academy - Imparting Knowledge, Illuminating Hearts. Premier Islamic education in Mangalore since 2012.">
+    <meta name="keywords" content="Islamic Academy, Mangalore, Islamic Education, Quran, Madrasa, AS-SWUFFAH, Karnataka">
+    <meta name="author" content="AS-SWUFFAH Islamic Academy" />
+    <meta name="theme-color" content="#0e2f36" />
+    <meta property="og:site_name" content="AS-SWUFFAH Islamic Academy" />
+    <meta property="og:image" content="https://www.as-swuffah.com/favicon.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="AS-SWUFFAH Islamic Academy Logo" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://www.as-swuffah.com/favicon.png" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Performance: DNS prefetch for third-party origins -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Performance: Early connection to font servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <title>AS-SWUFFAH Islamic Academy</title>
+
+    <!-- Theme init: always light mode on every visit -->
     <script>
-      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
+      document.documentElement.classList.remove('dark')
     </script>
   </head>
   <body>
@@ -19,3 +37,4 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+

@@ -2,21 +2,33 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-const heroImg = 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1920&q=80';
+const heroVideo = new URL('../assets/hero-bg.mp4', import.meta.url).href;
 import WaveDivider from './WaveDivider';
 
 const Hero = () => {
     return (
-        <section id="hero" className="relative h-screen min-h-[700px] w-full flex items-center justify-center overflow-hidden bg-navy">
-            {/* Background Image with Premium Overlay */}
-            <div className="absolute inset-0 z-0">
-                <img
-                    src={heroImg}
-                    alt="Campus"
-                    className="w-full h-full object-cover object-center scale-105 animate-slow-zoom"
-                    fetchpriority="high"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-navy/40 via-navy/60 to-navy/90"></div>
+        <section id="hero" className="relative h-[100svh] min-h-[700px] w-full flex items-center justify-center overflow-hidden bg-navy">
+            {/* Background Video with Premium Overlays */}
+            <div className="absolute inset-0 z-0 overflow-hidden">
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    aria-hidden="true"
+                    className="w-full h-full object-cover object-center filter brightness-[0.70] contrast-[1.05] saturate-[0.9] animate-slow-zoom"
+                >
+                    <source src={heroVideo} type="video/mp4" />
+                </video>
+                
+                {/* Brand Pattern Overlay */}
+                <div className="absolute inset-0 bg-islamic-pattern opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
+
+                {/* Radial Vignette Overlay for focus on typography */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(14,47,54,0.05)_0%,rgba(7,26,20,0.45)_100%)] pointer-events-none"></div>
+
+                {/* Linear Gradient Overlay for smooth transition */}
+                <div className="absolute inset-0 bg-gradient-to-b from-navy/10 via-navy/35 to-navy/85 dark:from-[#071A14]/10 dark:via-[#071A14]/35 dark:to-[#071A14]/90 pointer-events-none"></div>
             </div>
 
             {/* Subtle gold glow top-right */}
@@ -51,15 +63,17 @@ const Hero = () => {
             </div>
 
             {/* Scroll Indicator */}
-            <motion.div
+            <motion.button
+                type="button"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20 cursor-pointer text-white/50 hover:text-gold transition-colors"
+                className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20 cursor-pointer text-white/50 hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-full p-1"
                 onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+                aria-label="Scroll to about section"
             >
                 <ChevronDown size={32} className="animate-bounce" />
-            </motion.div>
+            </motion.button>
 
             {/* Wave — transitions into the peach/dark section below */}
             <WaveDivider fillLight="#f7f5f0" fillDark="#071d21" />

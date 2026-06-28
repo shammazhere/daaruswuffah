@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import logoImg from '../assets/Asswuffah Logo.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => 
+    typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
+  );
   const location = useLocation();
-
-  useEffect(() => {
-    // Check initial dark mode state
-    const isDark = document.documentElement.classList.contains('dark');
-    setIsDarkMode(isDark);
-  }, []);
 
   const toggleDarkMode = () => {
     if (document.documentElement.classList.contains('dark')) {
@@ -26,6 +23,17 @@ const Navbar = () => {
       setIsDarkMode(true);
     }
   };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -48,7 +56,7 @@ const Navbar = () => {
       lastScrollY = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -91,11 +99,58 @@ const Navbar = () => {
   const hasDarkHero = isHomePage || isProgramPage;
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const mobileMenuRef = useRef(null);
+  const hamburgerRef = useRef(null);
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        setIsMenuOpen(false);
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, []);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const menu = mobileMenuRef.current;
+    if (!menu) return;
+
+    const focusables = Array.from(
+      menu.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+    );
+    const trigger = hamburgerRef.current;
+    const trapEls = [trigger, ...focusables].filter(Boolean);
+
+    if (trapEls.length === 0) return;
+
+    // Focus first menu link (index 1), falling back to trigger (index 0)
+    (trapEls[1] || trapEls[0]).focus();
+
+    const handleTab = (e) => {
+      if (e.key !== 'Tab') return;
+      const first = trapEls[0];
+      const last = trapEls[trapEls.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleTab);
+    return () => document.removeEventListener('keydown', handleTab);
+  }, [isMenuOpen]);
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
-        } ${scrolled ? 'py-4 bg-white/10 backdrop-blur-md border-b border-navy/5' : 'py-8 bg-transparent'}`}
+        } ${scrolled ? 'py-4 bg-white/10 backdrop-blur-md border-b border-navy/5' : 'py-6 lg:py-8 bg-transparent'}`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
         {/* Logo */}
@@ -104,8 +159,15 @@ const Navbar = () => {
           className="flex items-center group"
         >
           <div className={`flex flex-col leading-none transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'}`}>
-            <span className={`font-serif font-bold text-xl tracking-wide ${hasDarkHero ? (scrolled ? 'text-navy' : 'text-white') : 'text-navy'}`}>AS-SWUFFAH</span>
-            <span className={`text-gold text-xs font-medium tracking-[0.15em] uppercase`}>Islamic Academy</span>
+            <img
+              src={logoImg}
+              alt="AS-SWUFFAH Islamic Academy Logo"
+              className={`h-20 lg:h-32 w-auto object-contain transition-all duration-300 ${
+                hasDarkHero && !scrolled && !isDarkMode
+                  ? '[filter:drop-shadow(0_0_6px_rgba(255,255,255,0.25))_drop-shadow(0_2px_8px_rgba(0,0,0,0.9))]'
+                  : ''
+              }`}
+            />
           </div>
         </Link>
 
@@ -115,9 +177,9 @@ const Navbar = () => {
             <Link
               key={link.name}
               to={link.path}
-              className={`text-sm font-medium tracking-wider uppercase transition-all duration-300 relative group ${isActive(link.path)
+              className={`text-sm font-medium tracking-wider uppercase transition-all duration-300 relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${isActive(link.path)
                 ? 'text-gold'
-                : (hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold')
+                : (hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold')
                 }`}
             >
               {link.name}
@@ -131,9 +193,25 @@ const Navbar = () => {
             className="relative"
             onMouseEnter={() => setIsDropdownOpen(true)}
             onMouseLeave={() => setIsDropdownOpen(false)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                setIsDropdownOpen(false);
+              }
+            }}
           >
             <button
-              className={`text-sm font-medium tracking-wider uppercase transition-all duration-300 flex items-center gap-1.5 focus:outline-none ${isDropdownOpen ? 'text-gold' : (hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold')
+              aria-expanded={isDropdownOpen}
+              aria-haspopup="true"
+              aria-label="Explore pages"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsDropdownOpen((prev) => !prev);
+                } else if (e.key === 'Escape') {
+                  setIsDropdownOpen(false);
+                }
+              }}
+              className={`text-sm font-medium tracking-wider uppercase transition-all duration-300 flex items-center gap-1.5 focus:outline-none ${isDropdownOpen ? 'text-gold' : (hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold')
                 }`}
             >
               <span>Explore</span>
@@ -149,9 +227,9 @@ const Navbar = () => {
                     <Link
                       key={link.name}
                       to={link.path}
-                      className={`block text-xs font-semibold px-4 py-2.5 rounded-xl transition-all duration-200 ${isActive(link.path)
-                          ? 'bg-gold/10 text-gold'
-                          : 'text-dark/70 dark:text-peach/80 hover:bg-gold/10 hover:text-gold'
+                      className={`block text-xs font-semibold px-4 py-2.5 rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${isActive(link.path)
+                        ? 'bg-gold/10 text-gold'
+                        : 'text-dark/70 dark:text-peach/80 hover:bg-gold/10 hover:text-gold'
                         }`}
                     >
                       {link.name}
@@ -164,9 +242,9 @@ const Navbar = () => {
 
           <Link
             to="/contact"
-            className={`text-sm font-medium tracking-wider uppercase transition-all duration-300 relative group ${isActive('/contact')
+            className={`text-sm font-medium tracking-wider uppercase transition-all duration-300 relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${isActive('/contact')
               ? 'text-gold'
-              : (hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold')
+              : (hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold')
               }`}
           >
             Contact
@@ -177,7 +255,7 @@ const Navbar = () => {
           {/* Theme Toggle Desktop */}
           <button
             onClick={toggleDarkMode}
-            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 ${hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'
+            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'
               }`}
             aria-label="Toggle Dark Mode"
           >
@@ -190,7 +268,7 @@ const Navbar = () => {
           {/* Theme Toggle Mobile */}
           <button
             onClick={toggleDarkMode}
-            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 ${hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'
+            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'
               }`}
             aria-label="Toggle Dark Mode"
           >
@@ -199,7 +277,9 @@ const Navbar = () => {
 
           <Link to="/contact" className="btn-gold py-1.5 px-4 text-xs">Join</Link>
           <button
-            className={`p-2 transition-colors ${hasDarkHero ? (scrolled ? 'text-navy hover:text-gold' : 'text-white hover:text-gold') : 'text-navy hover:text-gold'}`}
+            ref={hamburgerRef}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            className={`p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -209,6 +289,11 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
+        ref={mobileMenuRef}
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!isMenuOpen}
+        aria-label="Mobile navigation"
         className={`lg:hidden fixed inset-0 z-40 bg-[#071A14] dark:bg-[#071A14] transition-all duration-500 overflow-y-auto ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
           }`}
       >
@@ -218,7 +303,7 @@ const Navbar = () => {
               key={link.name}
               to={link.path}
               onClick={() => setIsMenuOpen(false)}
-              className={`text-xl font-serif text-white/80 hover:text-gold transition-all duration-300 transform ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              className={`text-xl font-serif text-white/80 hover:text-gold transition-all duration-300 transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-[#071A14] ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 }`}
               style={{ transitionDelay: `${index * 50}ms` }}
             >

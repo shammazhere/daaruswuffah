@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HeroCurve from '../components/HeroCurve';
 import { motion } from 'framer-motion';
 import { FileText, Calendar, DollarSign, Award, ChevronRight, Send } from 'lucide-react';
 
 const AdmissionsPage = () => {
+    const [formData, setFormData] = useState({
+        name: '', email: '', phone: '', program: '', message: ''
+    });
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const { name, email, phone, program, message } = formData;
+        const body = `Admission Inquiry%0D%0A%0D%0AName: ${name}%0D%0AFrom: ${email}%0D%0APhone: ${phone || 'N/A'}%0D%0AProgram: ${program || 'N/A'}%0D%0A%0D%0A${message}`;
+        window.location.href = `mailto:admissions@as-swuffah.com?subject=Admission Inquiry from ${name}&body=${body}`;
+        setSubmitted(true);
+    };
     const steps = [
         { num: '01', title: 'Submit Inquiry', desc: 'Fill out the online application inquiry form or visit our campus office.' },
         { num: '02', title: 'Personal Interview', desc: 'A meeting with the candidate and parents to understand goals and values.' },
@@ -18,10 +34,7 @@ const AdmissionsPage = () => {
         'Copy of Birth Certificate / ID proof'
     ];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert('Thank you for your interest! The Admissions Department will contact you shortly.');
-    };
+    /* handleSubmit defined above */
 
     return (
         <div>
@@ -31,7 +44,7 @@ const AdmissionsPage = () => {
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-0 dark:opacity-100 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(214,180,76,0.1) 0%, transparent 70%)' }} />
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center relative z-10">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: 'easeOut' }} className="max-w-4xl mx-auto">
                         <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">Join Our Community</span>
                         <h1 className="text-5xl md:text-7xl font-serif font-bold text-navy dark:text-gold-light mb-6 leading-tight">Admissions Open</h1>
                         <p className="text-xl text-dark/70 dark:text-peach/80 mx-auto leading-relaxed">
@@ -138,78 +151,114 @@ const AdmissionsPage = () => {
                         </p>
                     </div>
 
-                    <motion.form
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        onSubmit={handleSubmit}
-                        className="bg-peach/30 dark:bg-[#071A14] rounded-[2.5rem] p-10 md:p-14 border border-navy/5 dark:border-white/5 shadow-premium space-y-8"
-                    >
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="space-y-2">
-                                <label className="text-sm font-semibold text-navy dark:text-peach/95">Full Name</label>
-                                <input
-                                    type="text"
-                                    required
-                                    placeholder="Enter your name"
-                                    className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent focus:outline-none focus:border-gold transition-all duration-300"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-semibold text-navy dark:text-peach/95">Email Address</label>
-                                <input
-                                    type="email"
-                                    required
-                                    placeholder="Enter your email"
-                                    className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent focus:outline-none focus:border-gold transition-all duration-300"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="space-y-2">
-                                <label className="text-sm font-semibold text-navy dark:text-peach/95">Phone Number</label>
-                                <input
-                                    type="tel"
-                                    required
-                                    placeholder="Enter your contact number"
-                                    className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent focus:outline-none focus:border-gold transition-all duration-300"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-semibold text-navy dark:text-peach/95">Program of Interest</label>
-                                <select
-                                    required
-                                    className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent dark:bg-[#071A14] focus:outline-none focus:border-gold transition-all duration-300 text-dark/70 dark:text-peach/85"
-                                >
-                                    <option value="">Select Program</option>
-                                    <option value="nurture">Nurture (Std 1-8)</option>
-                                    <option value="bloom">Bloom (Teenage Girls Diploma)</option>
-                                    <option value="sparkle">Sparkle (Women Diploma)</option>
-                                    <option value="thrive">Thrive (Teenage Boys Diploma)</option>
-                                    <option value="empowher">EmpowHer (Women Foundational)</option>
-                                    <option value="valueplus">Value+ (PUC & Sharee'ath)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className="space-y-2">
-                            <label className="text-sm font-semibold text-navy dark:text-peach/95">Message / Inquiries</label>
-                            <textarea
-                                rows={4}
-                                placeholder="Any specific requirements or questions?"
-                                className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent focus:outline-none focus:border-gold transition-all duration-300"
-                            ></textarea>
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="btn-gold w-full py-4 text-base font-bold flex items-center justify-center gap-3 hover:shadow-gold-hover hover:scale-[1.02]"
+                    {submitted ? (
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="bg-peach/30 dark:bg-[#071A14] rounded-[2.5rem] p-10 md:p-14 border border-navy/5 dark:border-white/5 shadow-premium text-center"
                         >
-                            <span>Submit Admission Inquiry</span>
-                            <Send size={18} />
-                        </button>
-                    </motion.form>
+                            <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center text-gold mx-auto mb-6">
+                                <Send size={32} />
+                            </div>
+                            <h4 className="text-2xl font-serif font-bold text-navy dark:text-gold-light mb-4">Thank You!</h4>
+                            <p className="text-dark/70 dark:text-peach/80 mb-6">Your inquiry has been prepared. Your email client should now open.</p>
+                            <button onClick={() => setSubmitted(false)} className="btn-gold">
+                                Submit Another Inquiry
+                            </button>
+                        </motion.div>
+                    ) : (
+                        <motion.form
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            onSubmit={handleSubmit}
+                            className="bg-peach/30 dark:bg-[#071A14] rounded-[2.5rem] p-10 md:p-14 border border-navy/5 dark:border-white/5 shadow-premium space-y-8"
+                        >
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-semibold text-navy dark:text-peach/95">Full Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        required
+                                        aria-required="true"
+                                        placeholder="Enter your name"
+                                        className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent focus:outline-none focus:border-gold transition-all duration-300 text-dark dark:text-peach"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-semibold text-navy dark:text-peach/95">Email Address</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        aria-required="true"
+                                        placeholder="Enter your email"
+                                        className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent focus:outline-none focus:border-gold transition-all duration-300 text-dark dark:text-peach"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-semibold text-navy dark:text-peach/95">Phone Number</label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        required
+                                        aria-required="true"
+                                        placeholder="Enter your contact number"
+                                        className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent focus:outline-none focus:border-gold transition-all duration-300 text-dark dark:text-peach"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-semibold text-navy dark:text-peach/95">Program of Interest</label>
+                                    <select
+                                        name="program"
+                                        value={formData.program}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent dark:bg-[#071A14] focus:outline-none focus:border-gold transition-all duration-300 text-dark/70 dark:text-peach/85"
+                                    >
+                                        <option value="">Select Program</option>
+                                        <option value="nurture">Nurture (Std 1-8)</option>
+                                        <option value="hifzul-quran">Hifzul Quran (Quran Memorization)</option>
+                                        <option value="bloom">Bloom (Teenage Girls Diploma)</option>
+                                        <option value="sparkle">Sparkle (Women Diploma)</option>
+                                        <option value="thrive">Thrive (Teenage Boys Diploma)</option>
+                                        <option value="empowher">EmpowHer (Women Foundational)</option>
+                                        <option value="valueplus">Value+ (PUC & Sharee'ath)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-sm font-semibold text-navy dark:text-peach/95">Message / Inquiries</label>
+                                <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    rows={4}
+                                    placeholder="Any specific requirements or questions?"
+                                    className="w-full px-6 py-4 rounded-2xl border border-navy/10 dark:border-white/10 bg-transparent focus:outline-none focus:border-gold transition-all duration-300 text-dark dark:text-peach"
+                                ></textarea>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="btn-gold w-full py-4 text-base font-bold flex items-center justify-center gap-3 hover:shadow-gold-hover hover:scale-[1.02]"
+                            >
+                                <span>Submit Admission Inquiry</span>
+                                <Send size={18} />
+                            </button>
+                        </motion.form>
+                    )}
                 </div>
             </section>
         </div>

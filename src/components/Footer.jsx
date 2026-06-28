@@ -33,7 +33,7 @@ const Footer = () => {
                         </p>
                         <div className="flex gap-4">
                             {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
-                                <a key={i} href="#" className="w-10 h-10 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center text-navy dark:text-peach/80 hover:bg-gold hover:border-gold hover:text-white transition-all duration-700">
+                                <a key={i} href="#" aria-label={`${['Facebook','Instagram','Twitter','Youtube'][i]}`} className="w-10 h-10 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center text-navy dark:text-peach/80 hover:bg-gold hover:border-gold hover:text-white transition-all duration-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
                                     <Icon size={18} strokeWidth={2.5} />
                                 </a>
                             ))}
@@ -45,12 +45,12 @@ const Footer = () => {
                         <div>
                             <h4 className="font-serif text-xl font-bold mb-6 text-gold uppercase tracking-wider text-sm">Explore</h4>
                             <ul className="space-y-4 text-sm text-navy dark:text-peach/80 font-bold">
-                                <li><Link to="/" className="hover:text-gold transition-colors">Home</Link></li>
-                                <li><Link to="/about" className="hover:text-gold transition-colors">About Us</Link></li>
-                                <li><Link to="/programs" className="hover:text-gold transition-colors">Programs</Link></li>
-                                <li><Link to="/campus" className="hover:text-gold transition-colors">Campus</Link></li>
-                                <li><Link to="/vision" className="hover:text-gold transition-colors">Vision</Link></li>
-                                <li><Link to="/contact" className="hover:text-gold transition-colors">Contact</Link></li>
+                                <li><Link to="/" className="hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">Home</Link></li>
+                                <li><Link to="/about" className="hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">About Us</Link></li>
+                                <li><Link to="/programs" className="hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">Programs</Link></li>
+                                <li><Link to="/campus" className="hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">Campus</Link></li>
+                                <li><Link to="/vision" className="hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">Vision</Link></li>
+                                <li><Link to="/contact" className="hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">Contact</Link></li>
                             </ul>
                         </div>
                         <div>
@@ -71,7 +71,7 @@ const Footer = () => {
                             </ul>
                             <div className="mt-8">
                                 <a
-                                    href="https://maps.app.goo.gl/k98tS7vG54U2M2C67"
+                                    href="https://www.google.com/maps/search/?api=1&query=New+India+HH+Diamond+City+Nandi+Gudda+Mangalore"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold text-white font-bold text-sm hover:bg-navy transition-all duration-300 shadow-lg shadow-gold/20"
@@ -88,8 +88,8 @@ const Footer = () => {
                 <div className="pt-8 border-t border-navy/10 dark:border-gold/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-navy/50 dark:text-peach/40 font-bold uppercase tracking-[0.2em]">
                     <p>© 2026 AS-SWUFFAH FOUNDATION. All rights reserved.</p>
                     <div className="flex gap-6">
-                        <a href="#" className="hover:text-gold transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-gold transition-colors">Terms of Service</a>
+                        <a href="#" className="hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">Privacy Policy</a>
+                        <a href="#" className="hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">Terms of Service</a>
                     </div>
                 </div>
             </div>

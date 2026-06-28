@@ -1,11 +1,12 @@
 import React from 'react';
 import { BookOpen, Users, Star, TrendingUp, Heart, GraduationCap, Compass } from 'lucide-react';
-const programNurture = 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80';
-const programBloom = 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80';
-const programSparkle = 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80';
+const programNurture = new URL('../assets/nurture.webp', import.meta.url).href;
+const programHifz = 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=800&q=80';
+const programBloom = new URL('../assets/bloom.webp', import.meta.url).href;
+const programSparkle = new URL('../assets/sparkle.webp', import.meta.url).href;
 const programThrive = 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=80';
-const programEmpowher = 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80';
-const programValuePlus = 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80';
+const programEmpowher = new URL('../assets/empower.webp', import.meta.url).href;
+const programValuePlus = new URL('../assets/value+.webp', import.meta.url).href;
 
 export const programsData = [
     {
@@ -20,9 +21,20 @@ export const programsData = [
         image: programNurture
     },
     {
+        id: 'hifzul-quran',
+        name: 'HIFZUL QURAN',
+        category: 'Kids',
+        tagline: 'Quran Memorization for Young Hearts',
+        description: 'A structured and supportive program for children to memorize the Holy Quran with correct Tajweed rules, fostering a deep, lifelong connection to the word of Allah.',
+        features: ['Tajweed Rules Mastery', 'Progressive Memorization Tracker', 'One-on-One Guided Recitation', 'Spiritual and Moral Insights'],
+        targetAudience: 'Children (Age 7-15)',
+        iconName: 'BookOpen',
+        image: programHifz
+    },
+    {
         id: 'bloom',
         name: 'BLOOM',
-        category: 'Youth',
+        category: 'Ladies',
         tagline: 'Teenage Girls Diploma Course',
         description: 'An empowering diploma course tailored for teenage girls, focusing on self-discovery, religious understanding, and life skills to navigate the modern world with confidence and faith.',
         features: ['Fiqh for Women', 'Personal Development', 'Creative Skills', 'Mentorship'],
@@ -44,7 +56,7 @@ export const programsData = [
     {
         id: 'thrive',
         name: 'THRIVE',
-        category: 'Youth',
+        category: 'Gents',
         tagline: 'Teenage Boys Specialized Diploma',
         description: 'A dynamic program for teenage boys designed to channel their energy into productive avenues, instilling discipline, leadership, and diverse knowledge.',
         features: ['Leadership Training', 'Physical Fitness', 'Islamic Jurisprudence', 'Career Guidance'],
@@ -66,7 +78,7 @@ export const programsData = [
     {
         id: 'value-plus',
         name: 'VALUE+',
-        category: 'Youth',
+        category: 'Ladies',
         tagline: 'Integrated PUC with Sharee\'ath',
         description: 'A dual-education model offering Pre-University Course (PUC) alongside in-depth Sharee\'ath studies, preparing students for both professional and religious success.',
         features: ['State Syllabus PUC', 'Classical Islamic Texts', 'Language Mastery', 'Holistic Evaluation'],

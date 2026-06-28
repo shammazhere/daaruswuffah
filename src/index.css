@@ -24,6 +24,18 @@
   --shadow-gold-hover: 0 20px 40px rgba(214, 180, 76, 0.2);
 }
 
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -34,10 +46,10 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  .dark body,
+  html.dark body,
   body.dark {
-    background-color: #071A14 !important;
-    color: #F8F5EC !important;
+    background-color: #071A14;
+    color: #F8F5EC;
   }
 
   h1,
@@ -67,8 +79,10 @@
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
-  .animate-slow-zoom {
-    animation: slowZoom 20s ease-in-out infinite alternate;
+  @media (min-width: 768px) {
+    .animate-slow-zoom {
+      animation: slowZoom 20s ease-in-out infinite alternate;
+    }
   }
 
   .animate-fade-in {
@@ -116,12 +130,29 @@
     }
   }
 
+  /* Luxury loader — shimmer bar */
+  @keyframes luxuryShimmer {
+    0%   { transform: translateX(-200%); opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { transform: translateX(200%); opacity: 0; }
+  }
+
+  /* Luxury loader — cascading micro dots */
+  @keyframes luxuryDot {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.6); }
+  }
+
+
   /* Hero arc wrapper — allows the SVG drop-shadow to render outside the hero bounds */
   .hero-arc-wrap {
     position: relative;
     overflow: visible;
     z-index: 10;
     margin-bottom: -2px;
+    /* Isolate the hero's paint/layout from the rest of the page */
+    contain: layout style;
   }
 
   /* Hero arc section — fixed height + overflow hidden so SVG wave clips cleanly */
@@ -129,215 +160,16 @@
     position: relative;
     overflow: hidden;
   }
-}
 
-/* ─────────────────────────────────────────────────────────────
-   DARK MODE – Comprehensive Global Overrides
-   ───────────────────────────────────────────────────────────── */
+  /* GPU-accelerate the fixed navbar slide transition */
+  nav[class*="fixed"] {
+    will-change: transform;
+  }
 
-/* Root background */
-.dark {
-  background-color: #071A14;
-  color: #F8F5EC;
-}
-
-/* ── Typography ── */
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5,
-.dark h6 {
-  color: #ecd9ae !important;
-}
-
-.dark p {
-  color: #B8C1BA !important;
-}
-
-.dark li {
-  color: #B8C1BA !important;
-}
-
-.dark label {
-  color: #F8F5EC !important;
-}
-
-.dark span {
-  color: #B8C1BA;
-}
-
-/* Preserve gold/white text */
-.dark .text-gold,
-.dark [class*="text-gold"] {
-  color: #D6B44C !important;
-}
-
-.dark .text-white {
-  color: #ffffff !important;
-}
-
-.dark .text-navy,
-.dark [class*="text-navy"] {
-  color: #ecd9ae !important;
-}
-
-/* ── Backgrounds: Sections ── */
-.dark section,
-.dark div>section {
-  background-color: #071A14;
-}
-
-/* White-background sections */
-.dark .bg-white {
-  background-color: #0D2A21 !important;
-}
-
-/* Peach-background sections */
-.dark .bg-peach,
-.dark [class*="bg-peach"] {
-  background-color: #071A14 !important;
-}
-
-/* Hero gradient sections */
-.dark [class*="from-gold-light"] {
-  background-image: linear-gradient(to bottom, #0D2A21, #071A14) !important;
-  background-color: #0D2A21 !important;
-}
-
-/* ── Alternating section rows ── */
-.dark :where(section):nth-child(even) {
-  background-color: #0D2A21 !important;
-}
-
-.dark :where(section):nth-child(odd) {
-  background-color: #071A14 !important;
-}
-
-/* ── SVG Wave fill ── */
-.dark .dark-wave-fill,
-.dark svg path.dark-wave-fill {
-  fill: #071A14 !important;
-}
-
-/* ── Backgrounds: Cards & Panels ── */
-.dark .rounded-3xl.bg-white,
-.dark .rounded-3xl[class*="bg-white"],
-.dark .rounded-2xl.bg-white {
-  background-color: #0D2A21 !important;
-}
-
-/* Transparent white overlays */
-.dark [class*="bg-white\/"] {
-  background-color: rgba(13, 42, 33, 0.5) !important;
-}
-
-.dark [class*="bg-navy\/5"],
-.dark [class*="bg-navy\/10"] {
-  background-color: rgba(13, 42, 33, 0.4) !important;
-}
-
-/* Vision/FutureVision glass cards */
-.dark .backdrop-blur-md {
-  background-color: rgba(13, 42, 33, 0.6) !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-/* ── Borders ── */
-.dark [class*="border-navy"] {
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-.dark [class*="border-gold\/"] {
-  border-color: rgba(214, 180, 76, 0.2) !important;
-}
-
-.dark [class*="border-transparent"] {
-  border-color: transparent !important;
-}
-
-/* ── Forms ── */
-.dark input,
-.dark select,
-.dark textarea {
-  background-color: #071A14 !important;
-  color: #F8F5EC !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-}
-
-.dark input::placeholder,
-.dark textarea::placeholder {
-  color: rgba(248, 245, 236, 0.4) !important;
-}
-
-/* ── Buttons (non-gold) ── */
-.dark button:not([class*="bg-gold"]):not([class*="bg-navy"]):not(.btn-gold):not([class*="btn-gold"]) {
-  background-color: #0D2A21 !important;
-  color: #F8F5EC !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-.dark button:not([class*="bg-gold"]):not([class*="bg-navy"]):not(.btn-gold):not([class*="btn-gold"]):hover {
-  background-color: #D6B44C !important;
-  color: #071A14 !important;
-}
-
-/* ── Footer ── */
-.dark footer {
-  background-color: #05130f !important;
-  color: #F8F5EC !important;
-  border-top-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-.dark footer [class*="bg-white"] {
-  background-color: transparent !important;
-}
-
-.dark footer [class*="text-navy"] {
-  color: #F8F5EC !important;
-}
-
-.dark footer a,
-.dark footer span,
-.dark footer p,
-.dark footer li {
-  color: #B8C1BA !important;
-}
-
-.dark footer a:hover {
-  color: #D6B44C !important;
-}
-
-.dark footer a [class*="text-gold"],
-.dark footer .text-gold {
-  color: #D6B44C !important;
-}
-
-/* ── Navbar ── */
-.dark nav,
-.dark header {
-  background-color: rgba(7, 26, 20, 0.9) !important;
-}
-
-.dark nav [class*="bg-white\/10"] {
-  background-color: rgba(7, 26, 20, 0.85) !important;
-}
-
-/* ── Google Maps iframe (dark filter) ── */
-.dark iframe[title*="Map"],
-.dark iframe[title*="map"],
-.dark .map-iframe {
-  filter: invert(92%) hue-rotate(180deg) brightness(0.8) saturate(0.6) !important;
-}
-
-/* ── WhatsApp tooltip ── */
-.dark [class*="bg-white"][class*="text-navy"] {
-  background-color: #0D2A21 !important;
-  color: #F8F5EC !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-/* ── ProgramDetail page sidebar (navy box) ── */
-.dark .bg-navy {
-  background-color: #071A14 !important;
+  /* GPU-accelerate framer-motion animated elements */
+  [data-framer-component-type],
+  .animate-slow-zoom,
+  .animate-bounce {
+    will-change: transform;
+  }
 }

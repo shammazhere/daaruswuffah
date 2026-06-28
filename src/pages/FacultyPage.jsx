@@ -3,6 +3,8 @@ import HeroCurve from '../components/HeroCurve';
 import { motion } from 'framer-motion';
 import { Mail, GraduationCap, Award, Heart } from 'lucide-react';
 
+const ustadImg = new URL('../assets/Ustad.webp', import.meta.url).href;
+
 const FacultyPage = () => {
     const scholars = [
         {
@@ -10,7 +12,7 @@ const FacultyPage = () => {
             role: "Chairman & Lead Islamic Scholar",
             degree: "Masters in Islamic Theology (Sa'adi)",
             bio: "With over 20 years of dedication, overseeing the academic and spiritual syllabus of the Academy.",
-            image: "https://images.unsplash.com/photo-1615109398623-88346a601842?w=800&q=80",
+            image: ustadImg,
             specialty: "Fiqh & Hadith studies"
         },
         {
@@ -18,7 +20,7 @@ const FacultyPage = () => {
             role: "Academic Dean",
             degree: "Ph.D. in Islamic Law, Al-Azhar University",
             bio: "Expert in comparative jurisprudence and classical text translation, mentoring higher-education PUC candidates.",
-            image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80",
+            image: ustadImg,
             specialty: "Usool-al-Fiqh & Arabic Literature"
         },
         {
@@ -26,7 +28,7 @@ const FacultyPage = () => {
             role: "Director of Hifz Quran",
             degree: "Ijazah in Ten Qira'at",
             bio: "Nurturing students in tajweed mastery and memorization standards, ensuring absolute accuracy and spiritual reflection.",
-            image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&q=80",
+            image: ustadImg,
             specialty: "Quranic Sciences & Tajweed"
         },
         {
@@ -34,7 +36,7 @@ const FacultyPage = () => {
             role: "Head of Women's Diploma Studies",
             degree: "B.A. in Islamic Studies, Medina College",
             bio: "Designing empowering syllabus modules for Bloom & Sparkle courses, tailoring personal developmental tools.",
-            image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80",
+            image: ustadImg,
             specialty: "Seerah & Women's Jurisprudence"
         },
         {
@@ -42,7 +44,7 @@ const FacultyPage = () => {
             role: "Kids Nurture Coordinator",
             degree: "Diploma in Child Psychology & Islamic Ethics",
             bio: "Focusing on child psychology and moral foundation classes for standards 1 to 8, bringing interactive teaching tools.",
-            image: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=800&q=80",
+            image: ustadImg,
             specialty: "Islamic Ethics & Character Building"
         },
         {
@@ -50,7 +52,7 @@ const FacultyPage = () => {
             role: "Senior Instructor - Youth Development",
             degree: "B.Sc. & Diploma in Arabic Linguistics",
             bio: "Leading physical fitness, leadership modules, and career counseling for teenage boys under the Thrive course.",
-            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&q=80",
+            image: ustadImg,
             specialty: "Grammar, Balagha & Mentorship"
         }
     ];
@@ -63,7 +65,7 @@ const FacultyPage = () => {
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-0 dark:opacity-100 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(214,180,76,0.1) 0%, transparent 70%)' }} />
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center relative z-10">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: 'easeOut' }} className="max-w-4xl mx-auto">
                         <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">Meet Our Educators</span>
                         <h1 className="text-5xl md:text-7xl font-serif font-bold text-navy dark:text-gold-light mb-6 leading-tight">Faculty & Scholars</h1>
                         <p className="text-xl text-dark/70 dark:text-peach/80 mx-auto leading-relaxed">

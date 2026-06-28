@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useSpring, useTransform } from 'framer-motion';
 
 const CountUp = ({ value, suffix = "" }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: false, margin: "-100px" });
+    const [prefersReduced] = useState(() => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
     const spring = useSpring(0, {
         mass: 1,
@@ -16,12 +17,17 @@ const CountUp = ({ value, suffix = "" }) => {
     );
 
     useEffect(() => {
+        if (prefersReduced) return;
         if (isInView) {
             spring.set(value);
         } else {
             spring.set(0);
         }
-    }, [isInView, spring, value]);
+    }, [isInView, spring, value, prefersReduced]);
+
+    if (prefersReduced) {
+        return <span ref={ref}>{value}{suffix}</span>;
+    }
 
     return <motion.span ref={ref}>{displayValue}</motion.span>;
 };

@@ -1,51 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { programsData, getIcon } from '../data/programsData';
+import { programsData } from '../data/programsData';
 import { ChevronLeft, ChevronRight, ArrowRight, User, Users, Baby, TrendingUp } from 'lucide-react';
 
 const Programs = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [activeCategory, setActiveCategory] = useState('All');
-    const [filteredPrograms, setFilteredPrograms] = useState(programsData);
+    const [isMobile, setIsMobile] = useState(() => 
+        typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
+    );
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 767px)');
+        const handleMediaQueryChange = (e) => {
+            setIsMobile(e.matches);
+        };
+        mediaQuery.addEventListener('change', handleMediaQueryChange);
+        return () => mediaQuery.removeEventListener('change', handleMediaQueryChange);
+    }, []);
 
     const categories = [
         { id: 'All', label: 'All', icon: <Users size={18} /> },
         { id: 'Kids', label: 'Kids', icon: <Baby size={18} /> },
-        { id: 'Youth', label: 'Youth', icon: <TrendingUp size={18} /> },
         { id: 'Ladies', label: 'Ladies', icon: <User size={18} /> },
         { id: 'Gents', label: 'Gents', icon: <User size={18} /> },
     ];
 
-    // Filter logic
-    useEffect(() => {
-        if (activeCategory === 'All') {
-            setFilteredPrograms(programsData);
-        } else {
-            const filtered = programsData.filter(program => program.category === activeCategory);
-            setFilteredPrograms(filtered);
-        }
+    const filteredPrograms = activeCategory === 'All'
+        ? programsData
+        : programsData.filter(program => program.category === activeCategory);
+
+    const [prevCategory, setPrevCategory] = useState(activeCategory);
+    if (activeCategory !== prevCategory) {
+        setPrevCategory(activeCategory);
         setCurrentIndex(0);
-    }, [activeCategory]);
+    }
+
+    const maxIndex = isMobile ? filteredPrograms.length : Math.max(1, filteredPrograms.length - 1);
+
+    // Reset index if it goes out of bounds on transition
+    if (currentIndex >= maxIndex && maxIndex > 0) {
+        setCurrentIndex(0);
+    }
 
     const nextSlide = () => {
-        setCurrentIndex((prev) => (prev + 1) >= filteredPrograms.length - 1 ? 0 : prev + 1);
+        if (maxIndex <= 1) return;
+        setCurrentIndex((prev) => (prev + 1) >= maxIndex ? 0 : prev + 1);
     };
 
     const prevSlide = () => {
-        setCurrentIndex((prev) => (prev - 1) < 0 ? Math.max(0, filteredPrograms.length - 2) : prev - 1);
+        if (maxIndex <= 1) return;
+        setCurrentIndex((prev) => (prev - 1) < 0 ? maxIndex - 1 : prev - 1);
     };
 
     // Auto-slide logic
     useEffect(() => {
         if (filteredPrograms.length <= 1) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         const timer = setInterval(() => {
-            nextSlide();
-        }, 2000);
+            setCurrentIndex((prev) => (prev + 1) >= maxIndex ? 0 : prev + 1);
+        }, 5000);
 
         return () => clearInterval(timer);
-    }, [filteredPrograms.length, currentIndex]);
+    }, [filteredPrograms.length, maxIndex]);
 
     const getVisiblePrograms = () => {
         if (filteredPrograms.length === 0) return [];
@@ -54,10 +73,11 @@ const Programs = () => {
         let visible = [];
         visible.push(filteredPrograms[currentIndex]);
 
-        let nextIdx = currentIndex + 1;
-        if (nextIdx >= filteredPrograms.length) nextIdx = 0;
-
-        visible.push(filteredPrograms[nextIdx]);
+        if (!isMobile) {
+            let nextIdx = currentIndex + 1;
+            if (nextIdx >= filteredPrograms.length) nextIdx = 0;
+            visible.push(filteredPrograms[nextIdx]);
+        }
         return visible;
     };
 
@@ -84,9 +104,8 @@ const Programs = () => {
                     </div>
 
                     {/* Filter Buttons Grid */}
-                    <div className="grid grid-cols-6 gap-3 w-full max-w-sm">
-                        {/* Row 1: All, Kids, Youth */}
-                        {categories.slice(0, 3).map((cat) => (
+                    <div className="grid grid-cols-4 gap-3 w-full max-w-sm">
+                        {categories.map((cat) => (
                             <button
                                 key={cat.id}
                                 onClick={() => setActiveCategory(cat.id)}
@@ -103,27 +122,6 @@ const Programs = () => {
                                 <span className="font-bold tracking-widest text-[10px] uppercase">{cat.label}</span>
                             </button>
                         ))}
-
-                        {/* Row 2: Ladies, Gents (Centered) */}
-                        <div className="col-span-1"></div>
-                        {categories.slice(3, 5).map((cat) => (
-                            <button
-                                key={cat.id}
-                                onClick={() => setActiveCategory(cat.id)}
-                                className={`
-                                    col-span-2 px-2 py-6 rounded-xl flex flex-col items-center gap-2 transition-all duration-300 border-2
-                                    ${activeCategory === cat.id
-                                        ? 'bg-navy text-white border-navy shadow-lg scale-105'
-                                        : 'bg-white dark:bg-[#0a2025] text-navy/70 dark:text-peach/70 border-navy/10 dark:border-gold/10 hover:border-gold hover:text-navy dark:hover:text-gold hover:shadow-md'}
-                                `}
-                            >
-                                <span className={activeCategory === cat.id ? 'text-gold' : 'text-navy/40'}>
-                                    {cat.icon}
-                                </span>
-                                <span className="font-bold tracking-widest text-[10px] uppercase">{cat.label}</span>
-                            </button>
-                        ))}
-                        <div className="col-span-1"></div>
                     </div>
                 </div>
 
@@ -133,11 +131,11 @@ const Programs = () => {
                     <div className="lg:col-span-7 relative px-8">
                         {filteredPrograms.length > 1 && (
                             <>
-                                <button onClick={prevSlide} className="absolute -left-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
-                                    <ChevronLeft size={24} />
+                                <button onClick={prevSlide} className="absolute -left-2 md:-left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
+                                    <ChevronLeft size={20} className="md:w-6 md:h-6" />
                                 </button>
-                                <button onClick={nextSlide} className="absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
-                                    <ChevronRight size={24} />
+                                <button onClick={nextSlide} className="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
+                                    <ChevronRight size={20} className="md:w-6 md:h-6" />
                                 </button>
                             </>
                         )}
@@ -147,17 +145,33 @@ const Programs = () => {
                                 {getVisiblePrograms().map((program) => (
                                     <motion.div
                                         key={program.id}
-                                        layout
-                                        initial={{ opacity: 0, x: 100 }}
+                                        layout={!isMobile}
+                                        initial={{ opacity: 0, x: 80 }}
                                         animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: -100 }}
-                                        transition={{
+                                        exit={{ opacity: 0, x: -80 }}
+                                        drag={isMobile ? "x" : false}
+                                        dragConstraints={{ left: 0, right: 0 }}
+                                        dragElastic={0.2}
+                                        onDragEnd={(e, info) => {
+                                            const swipeThreshold = 50;
+                                            if (info.offset.x < -swipeThreshold) {
+                                                nextSlide();
+                                            } else if (info.offset.x > swipeThreshold) {
+                                                prevSlide();
+                                            }
+                                        }}
+                                        style={isMobile ? { willChange: 'transform, opacity', touchAction: 'pan-y' } : {}}
+                                        transition={isMobile ? {
+                                            type: "tween",
+                                            duration: 0.25,
+                                            ease: "easeInOut"
+                                        } : {
                                             type: "spring", stiffness: 100, damping: 20, mass: 0.8
                                         }}
                                         className="group relative h-[480px] rounded-[2rem] overflow-hidden cursor-pointer shadow-premium"
                                     >
-                                        <Link to={`/program/${program.id}`} className="block w-full h-full">
-                                            <img src={program.image} alt={program.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                        <Link to={`/program/${program.id}`} className="block w-full h-full select-none">
+                                            <img src={program.image} alt={program.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                             <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 transition-opacity duration-300"></div>
                                             <div className="absolute bottom-0 left-0 w-full p-6 text-left">
                                                 <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
@@ -190,9 +204,8 @@ const Programs = () => {
                             <p className="text-dark/70 dark:text-peach/70 leading-relaxed mb-8 relative z-10 text-sm">
                                 {activeCategory === 'All' ? "Our curriculum caters to every stage of development, ensuring academic excellence and spiritual growth." :
                                     activeCategory === 'Kids' ? "Start them young with our nurturing programs combining foundational academics with moral education." :
-                                        activeCategory === 'Youth' ? "Empowering young minds with skills, knowledge and leadership values to navigate the future." :
-                                            activeCategory === 'Ladies' ? "Empowering women with knowledge that transforms families and communities." :
-                                                "Programs tailored for men to grow in knowledge and leadership."
+                                        activeCategory === 'Ladies' ? "Empowering women with knowledge that transforms families and communities." :
+                                            "Programs tailored for men to grow in knowledge and leadership."
                                 }
                             </p>
                             <Link to="/programs" className="inline-flex items-center gap-3 text-navy font-bold uppercase tracking-widest hover:text-gold transition-colors text-sm">

@@ -6,7 +6,7 @@ import { Download, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const ProgramsPage = () => {
-    const categories = ['Kids', 'Youth', 'Ladies', 'Gents'];
+    const categories = ['Kids', 'Ladies', 'Gents'];
 
     return (
         <div className="bg-peach dark:bg-[#071d21] min-h-screen">
@@ -21,7 +21,7 @@ const ProgramsPage = () => {
                 <div className="absolute bottom-20 left-0 w-[400px] h-[400px] rounded-full bg-gradient-radial from-[#1a5560]/20 to-transparent pointer-events-none opacity-0 dark:opacity-100 blur-3xl" />
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center relative z-10 w-full">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: 'easeOut' }} className="max-w-4xl mx-auto">
                         <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">Education Ecosystem</span>
                         <h1 className="text-5xl md:text-7xl font-serif font-bold text-navy dark:text-gold-light mb-8 leading-tight">Our Programs</h1>
                         <p className="text-xl text-dark/70 dark:text-peach/80 mx-auto leading-relaxed max-w-2xl">
@@ -60,7 +60,7 @@ const ProgramsPage = () => {
                                         <Link to={`/program/${program.id}`} className="group block h-full">
                                             <div className="bg-white dark:bg-[#0a2025] rounded-3xl overflow-hidden shadow-gold hover:shadow-gold-hover hover:scale-[1.02] transition-all duration-500 border-2 border-transparent hover:border-gold h-full flex flex-col">
                                                 <div className="relative h-56 overflow-hidden">
-                                                    <img src={program.image} alt={program.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                                    <img src={program.image} alt={program.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                                     <div className="absolute inset-0 bg-navy/20 group-hover:bg-navy/0 transition-colors duration-500"></div>
                                                 </div>
                                                 <div className="p-8 pt-0 flex flex-col flex-grow">

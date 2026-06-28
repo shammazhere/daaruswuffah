@@ -6,9 +6,14 @@ import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 const ContactPage = () => {
     const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
 
+    const [submitted, setSubmitted] = useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
+        const { name, email, phone, subject, message } = formData;
+        const body = `Name: ${name}%0D%0AFrom: ${email}%0D%0APhone: ${phone || 'N/A'}%0D%0A%0D%0A${message}`;
+        window.location.href = `mailto:info@as-swuffah.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+        setSubmitted(true);
     };
 
     const handleChange = (e) => {
@@ -16,9 +21,9 @@ const ContactPage = () => {
     };
 
     const contactInfo = [
-        { icon: <MapPin size={24} />, title: 'Address', details: 'Boliyar, Mangalore, Karnataka, India' },
-        { icon: <Phone size={24} />, title: 'Phone', details: '+91 XXX XXX XXXX' },
-        { icon: <Mail size={24} />, title: 'Email', details: 'info@as-swuffah.org' },
+        { icon: <MapPin size={24} />, title: 'Address', details: 'HH Diamond City, Jeppu, Mangalore' },
+        { icon: <Phone size={24} />, title: 'Phone', details: '+91 8970402313' },
+        { icon: <Mail size={24} />, title: 'Email', details: 'info@as-swuffah.com' },
         { icon: <Clock size={24} />, title: 'Office Hours', details: 'Mon – Sat: 9:00 AM – 5:00 PM' }
     ];
 
@@ -31,7 +36,7 @@ const ContactPage = () => {
                 <div className="absolute -bottom-10 left-0 w-[400px] h-[400px] rounded-full opacity-0 dark:opacity-100 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(26,85,96,0.25) 0%, transparent 70%)' }} />
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center relative z-10">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: 'easeOut' }} className="max-w-4xl mx-auto">
                         <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">Get In Touch</span>
                         <h1 className="text-5xl md:text-7xl font-serif font-bold text-navy dark:text-gold-light mb-6 leading-tight">Contact Us</h1>
                         <p className="text-xl text-dark/70 dark:text-peach/80 mx-auto leading-relaxed">
@@ -81,36 +86,51 @@ const ContactPage = () => {
                         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
                             <div className="bg-white dark:bg-[#0c2429] rounded-3xl p-10 shadow-gold border border-navy/5 dark:border-gold/10">
                                 <h3 className="text-2xl font-serif font-bold text-navy dark:text-gold-light mb-8">Send Us a Message</h3>
-                                <form onSubmit={handleSubmit} className="space-y-6">
-                                    {[
-                                        { label: 'Full Name *', name: 'name', type: 'text', placeholder: 'Your name' },
-                                        { label: 'Email *', name: 'email', type: 'email', placeholder: 'your@email.com' },
-                                        { label: 'Phone', name: 'phone', type: 'tel', placeholder: '+91 XXX XXX XXXX' },
-                                        { label: 'Subject *', name: 'subject', type: 'text', placeholder: 'What is this regarding?' },
-                                    ].map(field => (
-                                        <div key={field.name}>
-                                            <label className="block text-sm font-bold text-navy dark:text-peach mb-2">{field.label}</label>
-                                            <input
-                                                type={field.type} name={field.name} value={formData[field.name]}
-                                                onChange={handleChange} required={field.label.includes('*')}
-                                                className="w-full px-6 py-4 rounded-2xl border-2 border-navy/10 dark:border-gold/20 bg-peach dark:bg-[#071d21] text-dark dark:text-peach focus:border-gold outline-none transition-colors"
-                                                placeholder={field.placeholder}
-                                            />
+                                {submitted ? (
+                                    <div className="text-center py-12">
+                                        <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center text-gold mx-auto mb-6">
+                                            <Send size={32} />
                                         </div>
-                                    ))}
-                                    <div>
-                                        <label className="block text-sm font-bold text-navy dark:text-peach mb-2">Message *</label>
-                                        <textarea
-                                            name="message" value={formData.message} onChange={handleChange} required rows="5"
-                                            className="w-full px-6 py-4 rounded-2xl border-2 border-navy/10 dark:border-gold/20 bg-peach dark:bg-[#071d21] text-dark dark:text-peach focus:border-gold outline-none transition-colors resize-none"
-                                            placeholder="Tell us more about your inquiry..."
-                                        ></textarea>
+                                        <h4 className="text-2xl font-serif font-bold text-navy dark:text-gold-light mb-4">Thank You!</h4>
+                                        <p className="text-dark/70 dark:text-peach/80 mb-6">Your message has been prepared. Your email client should now open.</p>
+                                        <button onClick={() => setSubmitted(false)} className="btn-gold">
+                                            Send Another Message
+                                        </button>
                                     </div>
-                                    <button type="submit" className="btn-gold w-full py-5 text-lg inline-flex items-center justify-center gap-3">
-                                        <Send size={20} />
-                                        Send Message
-                                    </button>
-                                </form>
+                                ) : (
+                                    <form onSubmit={handleSubmit} className="space-y-6">
+                                        {[
+                                            { label: 'Full Name *', name: 'name', type: 'text', placeholder: 'Your name' },
+                                            { label: 'Email *', name: 'email', type: 'email', placeholder: 'your@email.com' },
+                                            { label: 'Phone', name: 'phone', type: 'tel', placeholder: '+91 8970402313' },
+                                            { label: 'Subject *', name: 'subject', type: 'text', placeholder: 'What is this regarding?' },
+                                        ].map(field => (
+                                            <div key={field.name}>
+                                                <label className="block text-sm font-bold text-navy dark:text-peach mb-2">{field.label}</label>
+                                                <input
+                                                    type={field.type} name={field.name} value={formData[field.name]}
+                                                    onChange={handleChange} required={field.label.includes('*')}
+                                                    aria-required={field.label.includes('*') ? 'true' : 'false'}
+                                                    className="w-full px-6 py-4 rounded-2xl border-2 border-navy/10 dark:border-gold/20 bg-peach dark:bg-[#071d21] text-dark dark:text-peach focus:border-gold outline-none transition-colors"
+                                                    placeholder={field.placeholder}
+                                                />
+                                            </div>
+                                        ))}
+                                        <div>
+                                            <label className="block text-sm font-bold text-navy dark:text-peach mb-2">Message *</label>
+                                            <textarea
+                                                name="message" value={formData.message} onChange={handleChange} required rows="5"
+                                                aria-required="true"
+                                                className="w-full px-6 py-4 rounded-2xl border-2 border-navy/10 dark:border-gold/20 bg-peach dark:bg-[#071d21] text-dark dark:text-peach focus:border-gold outline-none transition-colors resize-none"
+                                                placeholder="Tell us more about your inquiry..."
+                                            ></textarea>
+                                        </div>
+                                        <button type="submit" className="btn-gold w-full py-5 text-lg inline-flex items-center justify-center gap-3">
+                                            <Send size={20} />
+                                            Send Message
+                                        </button>
+                                    </form>
+                                )}
                             </div>
                         </motion.div>
                     </div>

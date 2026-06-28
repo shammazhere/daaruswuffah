@@ -7,6 +7,21 @@ const GalleryPage = () => {
     const categories = ['All', 'Campus', 'Classrooms', 'Library', 'Events'];
     const [activeCategory, setActiveCategory] = useState('All');
     const [selectedImage, setSelectedImage] = useState(null);
+    const closeBtnRef = React.useRef(null);
+
+    React.useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                setSelectedImage(null);
+            }
+        };
+        if (selectedImage) {
+            document.addEventListener('keydown', handleKeyDown);
+            // Move focus to close button when lightbox opens
+            setTimeout(() => closeBtnRef.current?.focus(), 50);
+        }
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [selectedImage]);
 
     const galleryItems = [
         {
@@ -79,7 +94,7 @@ const GalleryPage = () => {
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-0 dark:opacity-100 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(214,180,76,0.1) 0%, transparent 70%)' }} />
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center relative z-10">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: 'easeOut' }} className="max-w-4xl mx-auto">
                         <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">A Visual Journey</span>
                         <h1 className="text-5xl md:text-7xl font-serif font-bold text-navy dark:text-gold-light mb-6 leading-tight">Academy Gallery</h1>
                         <p className="text-xl text-dark/70 dark:text-peach/80 mx-auto leading-relaxed">
@@ -162,8 +177,10 @@ const GalleryPage = () => {
                         onClick={() => setSelectedImage(null)}
                     >
                         <button
+                            ref={closeBtnRef}
                             onClick={() => setSelectedImage(null)}
-                            className="absolute top-8 right-8 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white border border-white/20 transition-all duration-300"
+                            aria-label="Close image preview"
+                            className="absolute top-8 right-8 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white border border-white/20 transition-all duration-240"
                         >
                             <X size={24} />
                         </button>

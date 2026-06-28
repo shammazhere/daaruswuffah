@@ -22,37 +22,45 @@ const ProgramDetail = () => {
         <div className="bg-peach dark:bg-[#071d21] min-h-screen flex flex-col">
             <div className="hero-arc-wrap">
             <div
-                className="relative bg-navy h-screen flex items-center overflow-hidden z-10 hero-arc"
+                className="relative bg-navy h-[100svh] min-h-[600px] flex flex-col overflow-hidden z-10 hero-arc"
             >
+                {/* Background */}
                 <div className="absolute inset-0 z-0">
-                    <img src={program.image} alt="" className="w-full h-full object-cover object-center opacity-30" />
+                    <img src={program.image} alt="" decoding="async" className="w-full h-full object-cover object-center opacity-30" />
                     <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-transparent"></div>
                 </div>
                 {/* Gold glow top-right */}
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(199,161,90,0.08) 0%, transparent 70%)' }} />
 
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 w-full">
+                {/* Zone 1: Back button — pinned just below the navbar */}
+                <div className="relative z-20 pt-32 lg:pt-48 max-w-7xl mx-auto px-6 lg:px-12 w-full shrink-0">
                     <motion.button
                         onClick={() => navigate(-1)}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center text-gold hover:text-white mb-12 uppercase tracking-[0.3em] text-[10px] font-bold transition-all group"
+                        transition={{ duration: 0.6 }}
+                        className="flex items-center text-gold hover:text-white uppercase tracking-[0.3em] text-[10px] font-bold transition-all group"
                     >
                         <ArrowLeft size={16} className="mr-3 group-hover:-translate-x-2 transition-transform" /> Back to Programs
                     </motion.button>
+                </div>
 
-                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                        <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full bg-gold/10 border border-gold/20 mb-8 text-gold backdrop-blur-md">
-                            <span>{getIcon(program.iconName)}</span>
-                            <span className="text-xs font-bold uppercase tracking-widest">{program.category}</span>
-                        </div>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight max-w-4xl">
-                            {program.name}
-                        </h1>
-                        <p className="text-xl md:text-2xl text-peach/80 font-serif italic max-w-2xl leading-relaxed">
-                            {program.tagline}
-                        </p>
-                    </motion.div>
+                {/* Zone 2: Program content — centered in remaining space */}
+                <div className="flex-grow flex items-center relative z-10">
+                    <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
+                        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                            <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full bg-gold/10 border border-gold/20 mb-8 text-gold backdrop-blur-md">
+                                <span>{getIcon(program.iconName)}</span>
+                                <span className="text-xs font-bold uppercase tracking-widest">{program.category}</span>
+                            </div>
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight max-w-4xl">
+                                {program.name}
+                            </h1>
+                            <p className="text-xl md:text-2xl text-peach/80 font-serif italic max-w-2xl leading-relaxed">
+                                {program.tagline}
+                            </p>
+                        </motion.div>
+                    </div>
                 </div>
 
                 <div className="absolute bottom-0 right-0 w-1/3 h-full bg-gradient-to-l from-gold/5 to-transparent pointer-events-none"></div>

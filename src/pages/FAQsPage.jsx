@@ -53,7 +53,7 @@ const FAQsPage = () => {
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-0 dark:opacity-100 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(214,180,76,0.1) 0%, transparent 70%)' }} />
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center relative z-10">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: 'easeOut' }} className="max-w-4xl mx-auto">
                         <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">Got Questions?</span>
                         <h1 className="text-5xl md:text-7xl font-serif font-bold text-navy dark:text-gold-light mb-6 leading-tight">FAQs & Support</h1>
                         <p className="text-xl text-dark/70 dark:text-peach/80 mx-auto leading-relaxed">
@@ -76,6 +76,7 @@ const FAQsPage = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search your question here..."
+                            aria-label="Search FAQs"
                             className="w-full px-8 py-5 pl-16 rounded-2xl border border-navy/10 dark:border-white/5 bg-white dark:bg-[#0D2A21] shadow-soft focus:outline-none focus:border-gold transition-all duration-300 text-base"
                         />
                         <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-navy/40 dark:text-peach/50" size={22} />
@@ -93,6 +94,7 @@ const FAQsPage = () => {
                                 >
                                     <button
                                         onClick={() => setActiveIdx(activeIdx === idx ? null : idx)}
+                                        aria-expanded={activeIdx === idx}
                                         className="w-full px-8 py-6 flex items-center justify-between text-left focus:outline-none group"
                                     >
                                         <div className="flex items-center gap-4">

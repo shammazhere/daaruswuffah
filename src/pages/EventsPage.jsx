@@ -1,6 +1,7 @@
 import React from 'react';
 import HeroCurve from '../components/HeroCurve';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Calendar, MapPin, Clock, ArrowRight, Bell } from 'lucide-react';
 
 const EventsPage = () => {
@@ -61,7 +62,7 @@ const EventsPage = () => {
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-0 dark:opacity-100 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(214,180,76,0.1) 0%, transparent 70%)' }} />
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center relative z-10">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: 'easeOut' }} className="max-w-4xl mx-auto">
                         <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">Stay Updated</span>
                         <h1 className="text-5xl md:text-7xl font-serif font-bold text-navy dark:text-gold-light mb-6 leading-tight">Events & News</h1>
                         <p className="text-xl text-dark/70 dark:text-peach/80 mx-auto leading-relaxed">
@@ -156,13 +157,13 @@ const EventsPage = () => {
                             <p className="text-sm font-medium leading-relaxed opacity-90">
                                 Connect with the Academy administrative desk directly via phone or register as a volunteer coordinator.
                             </p>
-                            <a
-                                href="/contact"
+                            <Link
+                                to="/contact"
                                 className="inline-flex items-center gap-3 bg-navy text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-navy/90 hover:scale-105 transition-all duration-300"
                             >
                                 <span>Get in touch</span>
                                 <ArrowRight size={14} />
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
