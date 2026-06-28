@@ -163,7 +163,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           to="/"
-          className={`flex items-center group transition-opacity duration-300 ${isMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          className={`flex items-center group transition-opacity duration-300 ${isMenuOpen ? 'opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto' : 'opacity-100'}`}
           onClick={() => {
             setIsMenuOpen(false);
             if (location.pathname === '/') {
