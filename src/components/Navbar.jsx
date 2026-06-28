@@ -157,13 +157,13 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
-        } ${scrolled ? 'py-4' : 'py-6 lg:py-8'} ${scrolled && !isMenuOpen ? 'bg-white/10 backdrop-blur-md border-b border-navy/5' : 'bg-transparent'}`}
+        } ${scrolled ? 'py-4' : 'py-6 lg:py-8'} ${scrolled ? 'bg-white/10 backdrop-blur-md border-b border-navy/5' : 'bg-transparent'} ${isMenuOpen ? 'lg:opacity-100 lg:pointer-events-auto opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
       >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
         {/* Logo */}
         <Link
           to="/"
-          className={`flex items-center group transition-opacity duration-300 ${isMenuOpen ? 'opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto' : 'opacity-100'}`}
+          className="flex items-center group transition-opacity duration-300"
           onClick={() => {
             setIsMenuOpen(false);
             if (location.pathname === '/') {
@@ -281,8 +281,7 @@ const Navbar = () => {
           {/* Theme Toggle Mobile */}
           <button
             onClick={toggleDarkMode}
-            className={`p-2 rounded-full hover:bg-gold/10 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${isMenuOpen ? 'opacity-0 pointer-events-none translate-x-4' : 'opacity-100 translate-x-0'} ${hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'
-              }`}
+            className={`p-2 rounded-full hover:bg-gold/10 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'}`}
             aria-label="Toggle Dark Mode"
           >
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
@@ -291,11 +290,11 @@ const Navbar = () => {
 
           <button
             ref={hamburgerRef}
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            className={`p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${isMenuOpen || (hasDarkHero && !scrolled) ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Open menu"
+            className={`p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'}`}
+            onClick={() => setIsMenuOpen(true)}
           >
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            <Menu size={28} />
           </button>
         </div>
       </div>
@@ -311,6 +310,15 @@ const Navbar = () => {
         className={`lg:hidden fixed inset-0 z-40 bg-[#071A14] dark:bg-[#071A14] transition-all duration-500 overflow-y-auto ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
           }`}
       >
+        <div className="absolute top-6 right-6 lg:right-12">
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="p-2 text-white hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-[#071A14]"
+            aria-label="Close menu"
+          >
+            <X size={28} />
+          </button>
+        </div>
         <div className="flex flex-col items-center justify-start min-h-[100svh] py-24 space-y-6 px-6 text-center">
           {mobileLinks.map((link, index) => (
             <Link
