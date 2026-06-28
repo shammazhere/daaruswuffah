@@ -182,10 +182,9 @@ const Programs = () => {
                                             }
                                         }}
                                         style={isMobile ? { willChange: 'transform, opacity', touchAction: 'pan-y' } : {}}
-                                        transition={isMobile ? {
-                                            type: "spring", stiffness: 300, damping: 30, mass: 1
-                                        } : {
-                                            type: "spring", stiffness: 100, damping: 20, mass: 0.8
+                                        transition={{
+                                            duration: 0.8,
+                                            ease: [0.16, 1, 0.3, 1]
                                         }}
                                         className="group relative h-[480px] rounded-[2rem] overflow-hidden cursor-pointer shadow-premium"
                                     >
