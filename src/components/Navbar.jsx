@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import logoImg from '../assets/Asswuffah Logo.png';
+import logoImg from '../assets/Asswuffah Logo.webp';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
