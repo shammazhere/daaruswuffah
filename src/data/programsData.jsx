@@ -4,7 +4,8 @@ const programNurture = new URL('../assets/nurture.webp', import.meta.url).href;
 const programHifz = 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=800&q=80';
 const programBloom = new URL('../assets/bloom.webp', import.meta.url).href;
 const programSparkle = new URL('../assets/sparkle.webp', import.meta.url).href;
-const programThrive = 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=80';
+const programThrive = new URL('../assets/thrive.webp', import.meta.url).href;
+const programNavigate = new URL('../assets/navigate.webp', import.meta.url).href;
 const programEmpowher = new URL('../assets/empower.webp', import.meta.url).href;
 const programValuePlus = new URL('../assets/value+.webp', import.meta.url).href;
 
@@ -95,7 +96,7 @@ export const programsData = [
         features: ['Daily Discussions', 'Q&A Sessions', 'Mentorship', 'Community Projects'],
         targetAudience: 'Youth - Any Age',
         iconName: 'Compass',
-        image: programValuePlus
+        image: programNavigate
     },
 ];
 
