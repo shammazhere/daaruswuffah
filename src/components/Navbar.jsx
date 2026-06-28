@@ -148,8 +148,9 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
         } ${scrolled ? 'py-4 bg-white/10 backdrop-blur-md border-b border-navy/5' : 'py-6 lg:py-8 bg-transparent'}`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
@@ -286,6 +287,7 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+      </nav>
 
       {/* Mobile Menu */}
       <div
@@ -297,7 +299,7 @@ const Navbar = () => {
         className={`lg:hidden fixed inset-0 z-40 bg-[#071A14] dark:bg-[#071A14] transition-all duration-500 overflow-y-auto ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
           }`}
       >
-        <div className="flex flex-col items-center justify-start min-h-screen py-24 space-y-6 px-6 text-center">
+        <div className="flex flex-col items-center justify-start min-h-[100svh] py-24 space-y-6 px-6 text-center">
           {mobileLinks.map((link, index) => (
             <Link
               key={link.name}
@@ -319,7 +321,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 
