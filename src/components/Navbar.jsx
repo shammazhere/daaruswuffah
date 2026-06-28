@@ -35,6 +35,12 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsDropdownOpen(false);
+  }, [location.pathname]);
+
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
