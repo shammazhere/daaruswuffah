@@ -117,7 +117,7 @@ const Programs = () => {
                             An Insight of <span className="text-gold italic">The Courses</span>
                         </h2>
                         <div className="w-24 h-1 bg-gold rounded-full mb-8 mx-auto lg:ml-0"></div>
-                        <p className="text-dark/70 text-lg leading-relaxed font-light">
+                        <p className="text-dark/70 dark:text-peach/80 text-lg leading-relaxed font-light">
                             Assuffa encourages education regardless of age. We believe in lifelong learning and providing opportunities for spiritual and academic growth for every member of the community.
                         </p>
                     </div>
@@ -183,9 +183,7 @@ const Programs = () => {
                                         }}
                                         style={isMobile ? { willChange: 'transform, opacity', touchAction: 'pan-y' } : {}}
                                         transition={isMobile ? {
-                                            type: "tween",
-                                            duration: 0.25,
-                                            ease: "easeInOut"
+                                            type: "spring", stiffness: 300, damping: 30, mass: 1
                                         } : {
                                             type: "spring", stiffness: 100, damping: 20, mass: 0.8
                                         }}

@@ -151,8 +151,8 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
-        } ${scrolled ? 'py-4 bg-white/10 backdrop-blur-md border-b border-navy/5' : 'py-6 lg:py-8 bg-transparent'}`}
-    >
+        } ${scrolled ? 'py-4' : 'py-6 lg:py-8'} ${scrolled && !isMenuOpen ? 'bg-white/10 backdrop-blur-md border-b border-navy/5' : 'bg-transparent'}`}
+      >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
         {/* Logo */}
         <Link
@@ -269,7 +269,7 @@ const Navbar = () => {
           {/* Theme Toggle Mobile */}
           <button
             onClick={toggleDarkMode}
-            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'
+            className={`p-2 rounded-full hover:bg-gold/10 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${isMenuOpen || (hasDarkHero && !scrolled) ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'
               }`}
             aria-label="Toggle Dark Mode"
           >
@@ -280,7 +280,7 @@ const Navbar = () => {
           <button
             ref={hamburgerRef}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            className={`p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${hasDarkHero && !scrolled ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'}`}
+            className={`p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${isMenuOpen || (hasDarkHero && !scrolled) ? 'text-white hover:text-gold' : 'text-navy dark:text-white hover:text-gold dark:hover:text-gold'}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
