@@ -65,7 +65,7 @@ const Programs = () => {
         const timer = setInterval(() => {
             setDirection(1);
             setCurrentIndex((prev) => (prev + 1) >= maxIndex ? 0 : prev + 1);
-        }, 5000);
+        }, 2500);
 
         return () => clearInterval(timer);
     }, [filteredPrograms.length, maxIndex]);
