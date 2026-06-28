@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, ArrowRight, User, Users, Baby, TrendingUp } 
 
 const Programs = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [direction, setDirection] = useState(1);
     const [activeCategory, setActiveCategory] = useState('All');
     const [isMobile, setIsMobile] = useState(() => 
         typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
@@ -46,11 +47,13 @@ const Programs = () => {
 
     const nextSlide = () => {
         if (maxIndex <= 1) return;
+        setDirection(1);
         setCurrentIndex((prev) => (prev + 1) >= maxIndex ? 0 : prev + 1);
     };
 
     const prevSlide = () => {
         if (maxIndex <= 1) return;
+        setDirection(-1);
         setCurrentIndex((prev) => (prev - 1) < 0 ? maxIndex - 1 : prev - 1);
     };
 
@@ -60,6 +63,7 @@ const Programs = () => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         const timer = setInterval(() => {
+            setDirection(1);
             setCurrentIndex((prev) => (prev + 1) >= maxIndex ? 0 : prev + 1);
         }, 5000);
 
@@ -79,6 +83,21 @@ const Programs = () => {
             visible.push(filteredPrograms[nextIdx]);
         }
         return visible;
+    };
+
+    const slideVariants = {
+        initial: (dir) => ({
+            opacity: 0,
+            x: dir > 0 ? 80 : -80
+        }),
+        animate: {
+            opacity: 1,
+            x: 0
+        },
+        exit: (dir) => ({
+            opacity: 0,
+            x: dir > 0 ? -80 : 80
+        })
     };
 
     return (
@@ -141,14 +160,16 @@ const Programs = () => {
                         )}
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <AnimatePresence mode='popLayout'>
+                            <AnimatePresence mode='popLayout' custom={direction}>
                                 {getVisiblePrograms().map((program) => (
                                     <motion.div
                                         key={program.id}
                                         layout={!isMobile}
-                                        initial={{ opacity: 0, x: 80 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: -80 }}
+                                        custom={direction}
+                                        variants={slideVariants}
+                                        initial="initial"
+                                        animate="animate"
+                                        exit="exit"
                                         drag={isMobile ? "x" : false}
                                         dragConstraints={{ left: 0, right: 0 }}
                                         dragElastic={0.2}
