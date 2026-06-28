@@ -158,6 +158,7 @@ const Navbar = () => {
         <Link
           to="/"
           className="flex items-center group"
+          onClick={() => setIsMenuOpen(false)}
         >
           <div className={`flex flex-col leading-none transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'}`}>
             <img

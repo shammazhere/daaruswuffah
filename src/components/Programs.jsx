@@ -108,6 +108,13 @@ const Programs = () => {
                 <div className="absolute -bottom-[20%] -left-[10%] w-[600px] h-[600px] bg-gold/5 rounded-full blur-3xl opacity-60"></div>
             </div>
 
+            {/* Preload Images to Prevent White Flash */}
+            <div className="hidden">
+                {filteredPrograms.map(program => (
+                    <img key={program.id} src={program.image} alt="" />
+                ))}
+            </div>
+
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
                 {/* Top Section */}
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-20">
