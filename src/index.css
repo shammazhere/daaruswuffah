@@ -166,8 +166,7 @@
     will-change: transform;
   }
 
-  /* GPU-accelerate framer-motion animated elements */
-  [data-framer-component-type],
+  /* GPU-accelerate specific animated elements (avoid global GPU layer explosion) */
   .animate-slow-zoom,
   .animate-bounce {
     will-change: transform;
