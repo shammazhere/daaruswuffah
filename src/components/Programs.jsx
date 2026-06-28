@@ -166,54 +166,58 @@ const Programs = () => {
                             </>
                         )}
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="relative min-h-[480px] w-full">
                             <AnimatePresence mode='popLayout' custom={direction}>
-                                {getVisiblePrograms().map((program) => (
-                                    <motion.div
-                                        key={program.id}
-                                        layout={!isMobile}
-                                        custom={direction}
-                                        variants={slideVariants}
-                                        initial="initial"
-                                        animate="animate"
-                                        exit="exit"
-                                        drag={isMobile ? "x" : false}
-                                        dragConstraints={{ left: 0, right: 0 }}
-                                        dragElastic={0.2}
-                                        onDragEnd={(e, info) => {
-                                            const swipeThreshold = 50;
-                                            if (info.offset.x < -swipeThreshold) {
-                                                nextSlide();
-                                            } else if (info.offset.x > swipeThreshold) {
-                                                prevSlide();
-                                            }
-                                        }}
-                                        style={{ 
-                                            ...(isMobile ? { willChange: 'transform, opacity', touchAction: 'pan-y' } : {}), 
-                                            WebkitBackfaceVisibility: 'hidden', 
-                                            WebkitPerspective: 1000,
-                                            WebkitTransform: 'translateZ(0)' 
-                                        }}
-                                        transition={{
-                                            duration: 0.8,
-                                            ease: [0.16, 1, 0.3, 1]
-                                        }}
-                                        className="group relative h-[480px] rounded-[2rem] overflow-hidden cursor-pointer shadow-premium"
-                                    >
-                                        <Link to={`/program/${program.id}`} className="block w-full h-full select-none">
-                                            <img src={program.image} alt={program.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 transform-gpu [backface-visibility:hidden]" />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 transition-opacity duration-300"></div>
-                                            <div className="absolute bottom-0 left-0 w-full p-6 text-left">
-                                                <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                                                    <h3 className="text-xl font-serif font-bold text-white mb-2 uppercase tracking-wide">{program.name}</h3>
-                                                    <span className="inline-flex items-center gap-2 text-gold font-bold uppercase tracking-widest text-xs">
-                                                        View Program <ArrowRight size={14} />
-                                                    </span>
+                                <motion.div
+                                    key={currentIndex}
+                                    custom={direction}
+                                    variants={slideVariants}
+                                    initial="initial"
+                                    animate="animate"
+                                    exit="exit"
+                                    drag={isMobile ? "x" : false}
+                                    dragConstraints={{ left: 0, right: 0 }}
+                                    dragElastic={0.2}
+                                    onDragEnd={(e, info) => {
+                                        const swipeThreshold = 50;
+                                        if (info.offset.x < -swipeThreshold) {
+                                            nextSlide();
+                                        } else if (info.offset.x > swipeThreshold) {
+                                            prevSlide();
+                                        }
+                                    }}
+                                    style={{ 
+                                        ...(isMobile ? { willChange: 'transform, opacity', touchAction: 'pan-y' } : {}), 
+                                        WebkitBackfaceVisibility: 'hidden', 
+                                        WebkitPerspective: 1000,
+                                        WebkitTransform: 'translateZ(0)' 
+                                    }}
+                                    transition={{
+                                        duration: 1.0,
+                                        ease: [0.16, 1, 0.3, 1]
+                                    }}
+                                    className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full"
+                                >
+                                    {getVisiblePrograms().map((program) => (
+                                        <div
+                                            key={program.id}
+                                            className="group relative h-[480px] rounded-[2rem] overflow-hidden cursor-pointer shadow-premium"
+                                        >
+                                            <Link to={`/program/${program.id}`} className="block w-full h-full select-none">
+                                                <img src={program.image} alt={program.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 transform-gpu [backface-visibility:hidden]" />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 transition-opacity duration-300"></div>
+                                                <div className="absolute bottom-0 left-0 w-full p-6 text-left">
+                                                    <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                                                        <h3 className="text-xl font-serif font-bold text-white mb-2 uppercase tracking-wide">{program.name}</h3>
+                                                        <span className="inline-flex items-center gap-2 text-gold font-bold uppercase tracking-widest text-xs">
+                                                            View Program <ArrowRight size={14} />
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    </motion.div>
-                                ))}
+                                            </Link>
+                                        </div>
+                                    ))}
+                                </motion.div>
                             </AnimatePresence>
                         </div>
                     </div>

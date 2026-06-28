@@ -18,7 +18,7 @@ const About = () => {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 2.0, ease: [0.16, 1, 0.3, 1] }}
                             className="relative"
                         >
                             <div className="relative z-10 rounded-2xl overflow-hidden shadow-premium">
@@ -30,7 +30,7 @@ const About = () => {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                            transition={{ duration: 2.0, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                         >
                             <span className="text-gold text-5xl font-serif mb-6 block leading-none">“</span>
                             <h3 className="text-2xl md:text-3xl font-serif italic text-navy dark:text-gold-light mb-8 leading-relaxed">
