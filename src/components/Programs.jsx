@@ -88,7 +88,7 @@ const Programs = () => {
     const slideVariants = {
         initial: (dir) => ({
             opacity: 0,
-            x: dir > 0 ? 80 : -80
+            x: dir > 0 ? 200 : -200
         }),
         animate: {
             opacity: 1,
@@ -96,7 +96,7 @@ const Programs = () => {
         },
         exit: (dir) => ({
             opacity: 0,
-            x: dir > 0 ? -80 : 80
+            x: dir > 0 ? -200 : 200
         })
     };
 
@@ -181,7 +181,12 @@ const Programs = () => {
                                                 prevSlide();
                                             }
                                         }}
-                                        style={isMobile ? { willChange: 'transform, opacity', touchAction: 'pan-y' } : {}}
+                                        style={{ 
+                                            ...(isMobile ? { willChange: 'transform, opacity', touchAction: 'pan-y' } : {}), 
+                                            WebkitBackfaceVisibility: 'hidden', 
+                                            WebkitPerspective: 1000,
+                                            WebkitTransform: 'translateZ(0)' 
+                                        }}
                                         transition={{
                                             duration: 0.8,
                                             ease: [0.16, 1, 0.3, 1]
@@ -189,7 +194,7 @@ const Programs = () => {
                                         className="group relative h-[480px] rounded-[2rem] overflow-hidden cursor-pointer shadow-premium"
                                     >
                                         <Link to={`/program/${program.id}`} className="block w-full h-full select-none">
-                                            <img src={program.image} alt={program.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                            <img src={program.image} alt={program.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 transform-gpu [backface-visibility:hidden]" />
                                             <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent opacity-80 transition-opacity duration-300"></div>
                                             <div className="absolute bottom-0 left-0 w-full p-6 text-left">
                                                 <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
