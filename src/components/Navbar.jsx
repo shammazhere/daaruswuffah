@@ -164,7 +164,12 @@ const Navbar = () => {
         <Link
           to="/"
           className="flex items-center group"
-          onClick={() => setIsMenuOpen(false)}
+          onClick={() => {
+            setIsMenuOpen(false);
+            if (location.pathname === '/') {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
         >
           <div className={`flex flex-col leading-none transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'}`}>
             <img
@@ -311,7 +316,12 @@ const Navbar = () => {
             <Link
               key={link.name}
               to={link.path}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                setIsMenuOpen(false);
+                if (location.pathname === link.path) {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
               className={`text-xl font-serif text-white/80 hover:text-gold transition-all duration-300 transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-[#071A14] ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                 }`}
               style={{ transitionDelay: `${index * 50}ms` }}
