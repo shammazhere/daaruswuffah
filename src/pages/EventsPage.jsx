@@ -96,7 +96,7 @@ const EventsPage = () => {
                                     <div className="w-24 h-24 bg-gold/10 dark:bg-gold/5 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-gold/15">
                                         <span className="text-2xl font-serif font-bold text-gold leading-none">{ev.date.split(' ')[1]}</span>
                                         <span className="text-xs uppercase tracking-wider text-navy dark:text-peach/80 mt-1.5 font-bold">{ev.date.split(' ')[0]}</span>
-                                        <span className="text-[10px] text-navy/40 dark:text-peach/40 mt-1 font-semibold">{ev.year}</span>
+                                        <span className="text-[10px] text-navy/60 dark:text-peach/70 mt-1 font-semibold">{ev.year}</span>
                                     </div>
 
                                     {/* Event Details */}
@@ -114,7 +114,7 @@ const EventsPage = () => {
                                         <h3 className="text-2xl font-serif font-bold text-navy dark:text-gold-light group-hover:text-gold transition-colors">{ev.title}</h3>
                                         <p className="text-dark/60 dark:text-peach/70 text-sm leading-relaxed">{ev.desc}</p>
                                         
-                                        <div className="flex flex-wrap gap-6 pt-2 text-xs text-dark/50 dark:text-peach/60 font-semibold">
+                                        <div className="flex flex-wrap gap-6 pt-2 text-xs text-dark/70 dark:text-peach/60 font-semibold">
                                             <div className="flex items-center gap-2">
                                                 <Clock size={14} className="text-gold" />
                                                 <span>{ev.time}</span>

@@ -8,8 +8,6 @@ const titles = {
   '/campus': 'Campus Facilities | AS-SWUFFAH Islamic Academy',
   '/vision': 'Vision & Roadmap | AS-SWUFFAH Islamic Academy',
   '/admissions': 'Admissions | AS-SWUFFAH Islamic Academy',
-  '/faculty': 'Faculty & Scholars | AS-SWUFFAH Islamic Academy',
-  '/gallery': 'Gallery | AS-SWUFFAH Islamic Academy',
   '/events': 'Events & News | AS-SWUFFAH Islamic Academy',
   '/faqs': 'FAQs | AS-SWUFFAH Islamic Academy',
   '/contact': 'Contact Us | AS-SWUFFAH Islamic Academy',

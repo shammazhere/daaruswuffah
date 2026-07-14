@@ -63,6 +63,12 @@
 }
 
 @layer utilities {
+  .transition-premium {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transition-duration: 400ms;
+  }
+
   .glass-nav {
     @apply bg-navy/80 backdrop-blur-md border-b border-gold/10;
   }
@@ -108,6 +114,10 @@
     @variant dark {
       fill: #0D2A21;
     }
+  }
+
+  .logo-highlight {
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.45)) drop-shadow(0 2px 8px rgba(214, 180, 76, 0.3));
   }
 
   @keyframes slowZoom {

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 const heroVideo = new URL('../assets/hero-bg.mp4', import.meta.url).href;
+const heroPoster = new URL('../assets/hero-poster.webp', import.meta.url).href;
 import WaveDivider from './WaveDivider';
 
 const Hero = () => {
@@ -15,6 +16,7 @@ const Hero = () => {
                     muted
                     loop
                     playsInline
+                    poster={heroPoster}
                     aria-hidden="true"
                     className="w-full h-full object-cover object-center filter brightness-[0.70] contrast-[1.05] saturate-[0.9] animate-slow-zoom"
                 >
@@ -68,7 +70,7 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20 cursor-pointer text-white/50 hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-full p-1"
+                className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20 cursor-pointer text-white/80 hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-full p-1"
                 onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
                 aria-label="Scroll to about section"
             >

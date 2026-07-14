@@ -43,8 +43,9 @@ const Navbar = () => {
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
+    let ticking = false;
 
-    const handleScroll = () => {
+    const updateScroll = () => {
       const currentScrollY = window.scrollY;
 
       // Determine direction and visibility
@@ -60,6 +61,14 @@ const Navbar = () => {
       setScrolled(currentScrollY > 50);
 
       lastScrollY = currentScrollY;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -76,8 +85,6 @@ const Navbar = () => {
   const dropdownLinks = [
     { name: 'Campus Facilities', path: '/campus' },
     { name: 'Vision & Roadmap', path: '/vision' },
-    { name: 'Faculty & Scholars', path: '/faculty' },
-    { name: 'Academy Gallery', path: '/gallery' },
     { name: 'Events & News', path: '/events' },
     { name: 'FAQs', path: '/faqs' }
   ];
@@ -89,8 +96,6 @@ const Navbar = () => {
     { name: 'Admissions Open', path: '/admissions' },
     { name: 'Campus Facilities', path: '/campus' },
     { name: 'Vision & Roadmap', path: '/vision' },
-    { name: 'Faculty & Scholars', path: '/faculty' },
-    { name: 'Academy Gallery', path: '/gallery' },
     { name: 'Events & News', path: '/events' },
     { name: 'FAQs', path: '/faqs' },
     { name: 'Contact', path: '/contact' }
@@ -103,6 +108,12 @@ const Navbar = () => {
   const isHomePage = location.pathname === '/';
   const isProgramPage = location.pathname.startsWith('/program/');
   const hasDarkHero = isHomePage || isProgramPage;
+
+  const logoHighlightClass = !scrolled
+    ? (isDarkMode || hasDarkHero)
+      ? 'logo-highlight'
+      : ''
+    : '';
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const mobileMenuRef = useRef(null);
@@ -175,11 +186,7 @@ const Navbar = () => {
             <img
               src={logoImg}
               alt="AS-SWUFFAH Islamic Academy Logo"
-              className={`h-20 lg:h-32 w-auto object-contain transition-all duration-300 ${
-                hasDarkHero && !scrolled && !isDarkMode
-                  ? '[filter:drop-shadow(0_0_6px_rgba(255,255,255,0.25))_drop-shadow(0_2px_8px_rgba(0,0,0,0.9))]'
-                  : ''
-              }`}
+              className={`h-20 lg:h-32 w-auto object-contain transition-all duration-300 ${logoHighlightClass}`}
             />
           </div>
         </Link>

@@ -21,7 +21,14 @@ const ScrollToTop = () => {
             };
             scrollToElement();
         } else {
+            const html = document.documentElement;
+            const originalScrollBehavior = html.style.scrollBehavior;
+            html.style.scrollBehavior = 'auto';
             window.scrollTo(0, 0);
+            // Force reflow/repaint before restoring style, or restore on next event loop tick
+            setTimeout(() => {
+                html.style.scrollBehavior = originalScrollBehavior;
+            }, 0);
         }
     }, [pathname, state]);
 

@@ -40,15 +40,6 @@ const seoMap = {
     description:
       'Admission information for joining AS-SWUFFAH Islamic Academy. Apply now and start your journey.',
   },
-  '/faculty': {
-    title: 'Faculty & Scholars | AS-SWUFFAH Islamic Academy',
-    description:
-      'Meet our esteemed faculty and scholars dedicated to nurturing the next generation.',
-  },
-  '/gallery': {
-    title: 'Gallery | AS-SWUFFAH Islamic Academy',
-    description: 'Explore moments from life at AS-SWUFFAH Islamic Academy.',
-  },
   '/events': {
     title: 'Events & News | AS-SWUFFAH Islamic Academy',
     description:

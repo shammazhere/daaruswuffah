@@ -79,7 +79,7 @@ const FAQsPage = () => {
                             aria-label="Search FAQs"
                             className="w-full px-8 py-5 pl-16 rounded-2xl border border-navy/10 dark:border-white/5 bg-white dark:bg-[#0D2A21] shadow-soft focus:outline-none focus:border-gold transition-all duration-300 text-base"
                         />
-                        <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-navy/40 dark:text-peach/50" size={22} />
+                        <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-navy/60 dark:text-peach/70" size={22} />
                     </div>
 
                     <div className="space-y-6">
@@ -123,7 +123,7 @@ const FAQsPage = () => {
                                 </motion.div>
                             ))
                         ) : (
-                            <div className="text-center py-12 text-dark/50 dark:text-peach/60 font-semibold">
+                            <div className="text-center py-12 text-dark/70 dark:text-peach/60 font-semibold">
                                 No questions found matching your search. Try another query.
                             </div>
                         )}

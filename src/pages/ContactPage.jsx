@@ -1,19 +1,41 @@
 import React, { useState } from 'react';
 import HeroCurve from '../components/HeroCurve';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, Loader2 } from 'lucide-react';
+import mapImg from '../assets/footer.webp';
 
 const ContactPage = () => {
     const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const { name, email, phone, subject, message } = formData;
-        const body = `Name: ${name}%0D%0AFrom: ${email}%0D%0APhone: ${phone || 'N/A'}%0D%0A%0D%0A${message}`;
-        window.location.href = `mailto:info@as-swuffah.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-        setSubmitted(true);
+        setIsSubmitting(true);
+        
+        try {
+            const res = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Note: You'll need to sign up at web3forms.com and paste your free key here
+                    ...formData
+                }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                setSubmitted(true);
+                setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+            }
+        } catch (error) {
+            console.error("Error submitting form", error);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleChange = (e) => {
@@ -92,7 +114,7 @@ const ContactPage = () => {
                                             <Send size={32} />
                                         </div>
                                         <h4 className="text-2xl font-serif font-bold text-navy dark:text-gold-light mb-4">Thank You!</h4>
-                                        <p className="text-dark/70 dark:text-peach/80 mb-6">Your message has been prepared. Your email client should now open.</p>
+                                        <p className="text-dark/70 dark:text-peach/80 mb-6">Your message has been sent successfully. We will get back to you shortly.</p>
                                         <button onClick={() => setSubmitted(false)} className="btn-gold">
                                             Send Another Message
                                         </button>
@@ -125,9 +147,9 @@ const ContactPage = () => {
                                                 placeholder="Tell us more about your inquiry..."
                                             ></textarea>
                                         </div>
-                                        <button type="submit" className="btn-gold w-full py-5 text-lg inline-flex items-center justify-center gap-3">
-                                            <Send size={20} />
-                                            Send Message
+                                        <button type="submit" disabled={isSubmitting} className="btn-gold w-full py-5 text-lg inline-flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed">
+                                            {isSubmitting ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
+                                            {isSubmitting ? 'Sending...' : 'Send Message'}
                                         </button>
                                     </form>
                                 )}

@@ -33,10 +33,10 @@ const FutureVision = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.6 }}
-                            className="group bg-white/40 dark:bg-[#0a2025]/60 backdrop-blur-md border border-navy/5 dark:border-gold/10 p-10 rounded-3xl hover:bg-white/60 dark:hover:bg-[#0a2025]/80 hover:border-gold/30 transition-all duration-500 shadow-lg shadow-navy/5"
+                            className="group bg-white/40 dark:bg-[#0a2025]/60 backdrop-blur-md border border-navy/5 dark:border-gold/10 p-10 rounded-3xl hover:bg-white/60 dark:hover:bg-[#0a2025]/80 hover:border-gold/30 transition-premium shadow-lg shadow-navy/5"
                         >
                             <div className="flex items-start gap-8">
-                                <div className="p-5 rounded-2xl bg-gold/10 text-gold group-hover:bg-gold group-hover:text-white transition-all duration-500 shrink-0">
+                                <div className="p-5 rounded-2xl bg-gold/10 text-gold group-hover:bg-gold group-hover:text-white transition-premium shrink-0">
                                     {vision.icon}
                                 </div>
                                 <div>

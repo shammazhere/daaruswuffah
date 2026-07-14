@@ -1,22 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import mapImg from '../assets/footer.webp';
 
 const Footer = () => {
     return (
         <footer id="footer" className="relative bg-white/40 dark:bg-[#041214] text-navy dark:text-peach/80 pt-24 pb-12 overflow-hidden border-t border-navy/5 dark:border-gold/10">
-            {/* Map Background - Always Visible & Calm */}
+            {/* Map Background - Static Image */}
             <div className="absolute inset-0 z-0">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3889.92!2d74.8451!3d12.8485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    title="Area Map"
-                    className="w-full h-full opacity-30 filter grayscale(100%) brightness(1.1) contrast(0.9) dark:opacity-20 dark:invert dark:hue-rotate-180"
-                ></iframe>
+                <img
+                    src={mapImg}
+                    alt="Academy Location Map"
+                    className="w-full h-full object-cover opacity-30 filter grayscale(100%) brightness(1.1) contrast(0.9) dark:opacity-20 dark:invert dark:hue-rotate-180 pointer-events-none"
+                />
                 {/* Minimal Overlay to keep it calm and allow legibility */}
                 <div className="absolute inset-0 bg-white/20 dark:bg-[#041214]/70 pointer-events-none backdrop-blur-[1px]"></div>
             </div>
@@ -85,7 +81,7 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-navy/10 dark:border-gold/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-navy/50 dark:text-peach/40 font-bold uppercase tracking-[0.2em]">
+                <div className="pt-8 border-t border-navy/10 dark:border-gold/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-navy/70 dark:text-peach/70 font-bold uppercase tracking-[0.2em]">
                     <p>© 2026 AS-SWUFFAH FOUNDATION. All rights reserved.</p>
                     <div className="flex gap-6">
                         <a href="#" className="hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">Privacy Policy</a>

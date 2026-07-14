@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HeroCurve from '../components/HeroCurve';
 import { motion } from 'framer-motion';
-import { FileText, Calendar, DollarSign, Award, ChevronRight, Send } from 'lucide-react';
+import { FileText, Calendar, DollarSign, Award, ChevronRight, Send, Loader2 } from 'lucide-react';
 
 const AdmissionsPage = () => {
     const [formData, setFormData] = useState({
@@ -9,16 +9,39 @@ const AdmissionsPage = () => {
     });
     const [submitted, setSubmitted] = useState(false);
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const { name, email, phone, program, message } = formData;
-        const body = `Admission Inquiry%0D%0A%0D%0AName: ${name}%0D%0AFrom: ${email}%0D%0APhone: ${phone || 'N/A'}%0D%0AProgram: ${program || 'N/A'}%0D%0A%0D%0A${message}`;
-        window.location.href = `mailto:admissions@as-swuffah.com?subject=Admission Inquiry from ${name}&body=${body}`;
-        setSubmitted(true);
+        setIsSubmitting(true);
+        
+        try {
+            const res = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Note: You'll need to sign up at web3forms.com and paste your free key here
+                    ...formData,
+                    subject: `Admission Inquiry from ${formData.name}`
+                }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                setSubmitted(true);
+                setFormData({ name: '', email: '', phone: '', program: '', message: '' });
+            }
+        } catch (error) {
+            console.error("Error submitting form", error);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
     const steps = [
         { num: '01', title: 'Submit Inquiry', desc: 'Fill out the online application inquiry form or visit our campus office.' },
@@ -30,8 +53,7 @@ const AdmissionsPage = () => {
     const requirements = [
         'Completed Application Form with passport-size photographs',
         'Academic transcripts/report card from the previous institution',
-        'Character certificate or reference letter',
-        'Copy of Birth Certificate / ID proof'
+        'ID proof'
     ];
 
     /* handleSubmit defined above */
@@ -124,14 +146,14 @@ const AdmissionsPage = () => {
                                     <Calendar className="text-gold" size={24} />
                                     <div>
                                         <h4 className="font-bold text-navy dark:text-peach text-sm uppercase tracking-wider">Deadline</h4>
-                                        <p className="text-xs text-dark/50 dark:text-peach/60 font-semibold">August 31, 2026</p>
+                                        <p className="text-xs text-dark/70 dark:text-peach/60 font-semibold">August 31, 2026</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <DollarSign className="text-gold" size={24} />
                                     <div>
                                         <h4 className="font-bold text-navy dark:text-peach text-sm uppercase tracking-wider">Installments</h4>
-                                        <p className="text-xs text-dark/50 dark:text-peach/60 font-semibold">Flexible plans available</p>
+                                        <p className="text-xs text-dark/70 dark:text-peach/60 font-semibold">Flexible plans available</p>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +168,7 @@ const AdmissionsPage = () => {
                     <div className="text-center mb-16">
                         <span className="text-gold font-medium tracking-[0.2em] uppercase text-sm mb-4 block">Inquiry Form</span>
                         <h2 className="text-4xl font-serif font-bold text-navy dark:text-gold-light">Online Inquiry</h2>
-                        <p className="text-dark/55 dark:text-peach/60 mt-4 max-w-lg mx-auto">
+                        <p className="text-dark/70 dark:text-peach/60 mt-4 max-w-lg mx-auto">
                             Submit a brief inquiry and our admissions counsellor will schedule an interview.
                         </p>
                     </div>
@@ -161,7 +183,7 @@ const AdmissionsPage = () => {
                                 <Send size={32} />
                             </div>
                             <h4 className="text-2xl font-serif font-bold text-navy dark:text-gold-light mb-4">Thank You!</h4>
-                            <p className="text-dark/70 dark:text-peach/80 mb-6">Your inquiry has been prepared. Your email client should now open.</p>
+                            <p className="text-dark/70 dark:text-peach/80 mb-6">Your inquiry has been sent successfully. Our admissions team will contact you soon.</p>
                             <button onClick={() => setSubmitted(false)} className="btn-gold">
                                 Submit Another Inquiry
                             </button>
@@ -252,10 +274,11 @@ const AdmissionsPage = () => {
 
                             <button
                                 type="submit"
-                                className="btn-gold w-full py-4 text-base font-bold flex items-center justify-center gap-3 hover:shadow-gold-hover hover:scale-[1.02]"
+                                disabled={isSubmitting}
+                                className="btn-gold w-full py-4 text-base font-bold flex items-center justify-center gap-3 hover:shadow-gold-hover hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
                             >
-                                <span>Submit Admission Inquiry</span>
-                                <Send size={18} />
+                                <span>{isSubmitting ? 'Submitting...' : 'Submit Admission Inquiry'}</span>
+                                {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
                             </button>
                         </motion.form>
                     )}

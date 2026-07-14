@@ -1,7 +1,7 @@
 import React from 'react';
 import { BookOpen, Users, Star, TrendingUp, Heart, GraduationCap, Compass } from 'lucide-react';
 const programNurture = new URL('../assets/nurture.webp', import.meta.url).href;
-const programHifz = 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=800&q=80';
+const programHifz = new URL('../assets/hifzul-quran.webp', import.meta.url).href;
 const programBloom = new URL('../assets/bloom.webp', import.meta.url).href;
 const programSparkle = new URL('../assets/sparkle.webp', import.meta.url).href;
 const programThrive = new URL('../assets/thrive.webp', import.meta.url).href;

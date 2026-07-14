@@ -57,9 +57,12 @@ const Programs = () => {
         setCurrentIndex((prev) => (prev - 1) < 0 ? maxIndex - 1 : prev - 1);
     };
 
+    const [isPaused, setIsPaused] = useState(false);
+
     // Auto-slide logic
     useEffect(() => {
         if (filteredPrograms.length <= 1) return;
+        if (isPaused) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         const timer = setInterval(() => {
@@ -68,17 +71,21 @@ const Programs = () => {
         }, 2500);
 
         return () => clearInterval(timer);
-    }, [filteredPrograms.length, maxIndex]);
+    }, [filteredPrograms.length, maxIndex, isPaused]);
 
     const getVisiblePrograms = () => {
         if (filteredPrograms.length === 0) return [];
-        if (filteredPrograms.length === 1) return [filteredPrograms[0]];
+        
+        // Safety guard for index during category transition
+        const safeIndex = currentIndex >= filteredPrograms.length ? 0 : currentIndex;
+        
+        if (filteredPrograms.length === 1) return [filteredPrograms[safeIndex]];
 
         let visible = [];
-        visible.push(filteredPrograms[currentIndex]);
+        visible.push(filteredPrograms[safeIndex]);
 
         if (!isMobile) {
-            let nextIdx = currentIndex + 1;
+            let nextIdx = safeIndex + 1;
             if (nextIdx >= filteredPrograms.length) nextIdx = 0;
             visible.push(filteredPrograms[nextIdx]);
         }
@@ -142,7 +149,7 @@ const Programs = () => {
                                         : 'bg-white dark:bg-[#0a2025] text-navy/70 dark:text-peach/70 border-navy/10 dark:border-gold/10 hover:border-gold hover:text-navy dark:hover:text-gold hover:shadow-md'}
                                 `}
                             >
-                                <span className={activeCategory === cat.id ? 'text-gold' : 'text-navy/40'}>
+                                <span className={activeCategory === cat.id ? 'text-gold' : 'text-navy/60'}>
                                     {cat.icon}
                                 </span>
                                 <span className="font-bold tracking-widest text-[10px] uppercase">{cat.label}</span>
@@ -154,13 +161,13 @@ const Programs = () => {
                 {/* Bottom Section: Slider and Info */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     {/* Left: Carousel */}
-                    <div className="lg:col-span-7 relative px-8">
+                    <div className="lg:col-span-7 relative px-8" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} onFocus={() => setIsPaused(true)} onBlur={() => setIsPaused(false)}>
                         {filteredPrograms.length > 1 && (
                             <>
-                                <button onClick={prevSlide} className="absolute -left-2 md:-left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
+                                <button onClick={prevSlide} aria-label="Previous Program Slide" className="absolute -left-2 md:-left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
                                     <ChevronLeft size={20} className="md:w-6 md:h-6" />
                                 </button>
-                                <button onClick={nextSlide} className="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
+                                <button onClick={nextSlide} aria-label="Next Program Slide" className="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-navy/20 dark:border-gold/20 flex items-center justify-center hover:bg-navy hover:text-white transition-all duration-300 bg-white dark:bg-[#0a2025] dark:text-peach shadow-lg">
                                     <ChevronRight size={20} className="md:w-6 md:h-6" />
                                 </button>
                             </>

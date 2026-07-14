@@ -101,21 +101,21 @@ const ProgramDetail = () => {
                             <h4 className="font-bold text-gold uppercase tracking-[0.2em] mb-8 text-xs">Admission Details</h4>
                             <div className="space-y-8">
                                 <div>
-                                    <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Target Audience</p>
+                                    <p className="text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1">Target Audience</p>
                                     <p className="text-lg font-serif font-bold text-white">{program.targetAudience}</p>
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Duration</p>
+                                    <p className="text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1">Duration</p>
                                     <p className="text-lg font-serif font-bold text-white">Academic Sessions</p>
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Certification</p>
+                                    <p className="text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1">Certification</p>
                                     <p className="text-lg font-serif font-bold text-white">Foundation Diploma</p>
                                 </div>
                                 <Link to="/contact" className="w-full btn-gold py-5 mt-6 uppercase tracking-[0.2em] text-sm flex items-center justify-center text-center">
                                     Apply Now
                                 </Link>
-                                <p className="text-[10px] text-center text-white/50 mt-6 leading-relaxed">
+                                <p className="text-[10px] text-center text-white/80 mt-6 leading-relaxed">
                                     Limited seats available. Please complete your application to secure enrollment.
                                 </p>
                             </div>

@@ -58,20 +58,20 @@ const ProgramsPage = () => {
                                         transition={{ delay: index * 0.1 }}
                                     >
                                         <Link to={`/program/${program.id}`} className="group block h-full">
-                                            <div className="bg-white dark:bg-[#0a2025] rounded-3xl overflow-hidden shadow-gold hover:shadow-gold-hover hover:scale-[1.02] transition-all duration-500 border-2 border-transparent hover:border-gold h-full flex flex-col">
+                                            <div className="bg-white dark:bg-[#0a2025] rounded-3xl overflow-hidden shadow-gold hover:shadow-gold-hover hover:scale-[1.02] transition-premium border-2 border-transparent hover:border-gold h-full flex flex-col">
                                                 <div className="relative h-56 overflow-hidden">
                                                     <img src={program.image} alt={program.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                                     <div className="absolute inset-0 bg-navy/20 group-hover:bg-navy/0 transition-colors duration-500"></div>
                                                 </div>
                                                 <div className="p-8 pt-0 flex flex-col flex-grow">
-                                                    <div className="w-16 h-16 bg-navy rounded-2xl flex items-center justify-center text-gold mb-6 -mt-8 relative z-10 shadow-lg group-hover:scale-110 group-hover:bg-gold group-hover:text-white transition-all duration-500">
+                                                    <div className="w-16 h-16 bg-navy rounded-2xl flex items-center justify-center text-gold mb-6 -mt-8 relative z-10 shadow-lg group-hover:scale-110 group-hover:bg-gold group-hover:text-white transition-premium">
                                                         {getIcon(program.iconName)}
                                                     </div>
                                                     <h3 className="text-2xl font-serif font-bold text-navy dark:text-gold-light mb-3">{program.name}</h3>
                                                     <p className="text-gold text-sm font-medium tracking-wider uppercase mb-4">{program.tagline}</p>
                                                     <p className="text-dark/60 dark:text-peach/70 text-sm mb-6 leading-relaxed flex-grow">{program.description}</p>
                                                     <div className="pt-6 border-t border-navy/10 dark:border-gold/10 mt-auto">
-                                                        <p className="text-xs text-dark/40 dark:text-peach/40 uppercase tracking-widest mb-2">Target Audience</p>
+                                                        <p className="text-xs text-dark/60 dark:text-peach/70 uppercase tracking-widest mb-2">Target Audience</p>
                                                         <p className="text-navy dark:text-peach font-bold mb-4">{program.targetAudience}</p>
                                                         <div className="flex items-center gap-2 text-gold font-bold text-sm">
                                                             View Details
